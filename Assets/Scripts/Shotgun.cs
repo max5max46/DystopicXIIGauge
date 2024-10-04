@@ -11,21 +11,21 @@ public class Shotgun : MonoBehaviour
     [SerializeField] private int pelletAmount = 10;
     [SerializeField] private float pelletSpread = 15;
     [SerializeField] private float reloadTime = 0.5f;
-    [SerializeField] private int clipSize = 3;
+    public int clipSize = 3;
     [SerializeField] private float shotgunDisFromPlayer = 1.5f;
 
     [Header("References")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject pelletPrefab;
 
-    private int bulletsInClip;
+    [HideInInspector] public int shellsInClip;
 
     private Vector2 cursorDirection;
 
     // Start is called before the first frame update
     void Start()
     {
-        bulletsInClip = clipSize;
+        shellsInClip = clipSize;
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class Shotgun : MonoBehaviour
 
     public void Fire()
     {
-        if (bulletsInClip == 0)
+        if (shellsInClip == 0)
             return;
 
         for (int i = 0; i < pelletAmount; i++)
@@ -51,14 +51,14 @@ public class Shotgun : MonoBehaviour
             pellet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, pelletSpread) + (transform.rotation.eulerAngles.z - (pelletSpread/2)));
         }
 
-        bulletsInClip--;
+        shellsInClip--;
     }
 
     public void Reload()
     {
-        if (bulletsInClip == clipSize)
+        if (shellsInClip == clipSize)
             return;
 
-        bulletsInClip++;
+        shellsInClip++;
     }
 }

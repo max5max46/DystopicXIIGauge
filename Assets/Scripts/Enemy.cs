@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int damage = 1;
     [SerializeField] private float speed = 0.1f;
+    [SerializeField] private int amountOfParts = 100;
 
     [Header("References")]
     [SerializeField] private GameObject player;
@@ -41,6 +42,8 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        player.GetComponent<Player>().ReceiveParts(amountOfParts);
+
         Destroy(gameObject);
     }
 
