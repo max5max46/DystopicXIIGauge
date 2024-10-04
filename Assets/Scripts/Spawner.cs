@@ -19,4 +19,11 @@ public class Spawner : MonoBehaviour
     {
         
     }
+
+    public GameObject SpawnEnemy()
+    {
+        GameObject enemy = Instantiate(enemyPrefab);
+        enemy.transform.position = transform.position + new Vector3 (Random.Range(0, 0.05f), Random.Range(0, 0.05f), 0);
+        return enemy;
+    }
 }

@@ -10,14 +10,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float speed = 0.1f;
     [SerializeField] private int amountOfParts = 100;
 
-    [Header("References")]
-    [SerializeField] private GameObject player;
+    private GameObject player;
+    private WaveManager waveManager;
 
     private int health;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = FindAnyObjectByType<Player>().gameObject;
+        waveManager = FindAnyObjectByType<WaveManager>();
         health = maxHealth;
     }
 
@@ -34,6 +36,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (health < 1)
+            return;
+
         health -= damage;
 
         if (health < 1)
@@ -43,7 +48,7 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         player.GetComponent<Player>().ReceiveParts(amountOfParts);
-
+        waveManager.EnemyDied(gameObject);
         Destroy(gameObject);
     }
 

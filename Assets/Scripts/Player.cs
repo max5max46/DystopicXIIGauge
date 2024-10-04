@@ -138,6 +138,6 @@ public class Player : MonoBehaviour
 
     public void ReceiveParts(int partsToReceive)
     {
-
+        parts += partsToReceive;
     }
 }

@@ -8,8 +8,10 @@ public class GameplayUI : MonoBehaviour
     [Header("References")]
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private TextMeshProUGUI clipText;
-
+    [SerializeField] private TextMeshProUGUI partsText;
+    [SerializeField] private WaveManager waveManager;
     [SerializeField] private Shotgun shotgun;
+    [SerializeField] private Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,8 @@ public class GameplayUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        waveText.text = "Wave " + waveManager.currentWave + "/" + waveManager.amountOfWaves;
         clipText.text = "Clip " + shotgun.shellsInClip + "/" + shotgun.clipSize;
+        partsText.text = "Parts: " + player.parts;
     }
 }
