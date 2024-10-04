@@ -10,11 +10,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float maxSpeed = 10;
     [SerializeField] private float acceleration = 10;
     [SerializeField] private float decelerationMultiplier = 0.8f;
-
-    [Header("Gun Properties")]
-    [SerializeField] private int gunDamage = 1;
-    [SerializeField] private int pelletCount = 10;
-    [SerializeField] private float reloadTime = 0.5f;
     
     private int health;
     private Rigidbody2D rb;
