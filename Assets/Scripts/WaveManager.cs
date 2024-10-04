@@ -9,6 +9,7 @@ public class WaveManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Spawner spawner;
+    [SerializeField] private DemoManager demoManager;
 
     [HideInInspector] public int currentWave;
     private List<GameObject> enemies;
@@ -33,7 +34,7 @@ public class WaveManager : MonoBehaviour
             if (currentWave > amountOfWaves)
             {
                 currentWave--;
-                Debug.Log("Win");
+                demoManager.Win();
                 hasWon = true;
             }
             else

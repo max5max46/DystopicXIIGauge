@@ -39,7 +39,9 @@ public class Pellet : MonoBehaviour
         if (collision.GetComponent<Enemy>())
         {
             collision.GetComponent<Enemy>().TakeDamage(1);
-            Destroy(gameObject);
         }
+
+
+        Destroy(gameObject);
     }
 }

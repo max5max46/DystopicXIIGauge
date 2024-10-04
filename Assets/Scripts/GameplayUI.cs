@@ -9,6 +9,7 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private TextMeshProUGUI clipText;
     [SerializeField] private TextMeshProUGUI partsText;
+    [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private WaveManager waveManager;
     [SerializeField] private Shotgun shotgun;
     [SerializeField] private Player player;
@@ -25,5 +26,6 @@ public class GameplayUI : MonoBehaviour
         waveText.text = "Wave " + waveManager.currentWave + "/" + waveManager.amountOfWaves;
         clipText.text = "Clip " + shotgun.shellsInClip + "/" + shotgun.clipSize;
         partsText.text = "Parts: " + player.parts;
+        healthText.text = "Health " + player.health + "/" + player.maxHealth;
     }
 }

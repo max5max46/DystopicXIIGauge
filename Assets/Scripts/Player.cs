@@ -6,20 +6,21 @@ public class Player : MonoBehaviour
 {
 
     [Header("Properties")]
-    [SerializeField] private int maxHealth = 3;
+    public int maxHealth = 3;
     [SerializeField] private float maxSpeed = 10;
     [SerializeField] private float acceleration = 10;
     [SerializeField] private float decelerationMultiplier = 0.8f;
 
     [Header("References")]
     [SerializeField] private Shotgun shotgun;
+    [SerializeField] private DemoManager demoManager;
 
-    private int health;
+    [HideInInspector] public int health;
     private Rigidbody2D rb;
     private Vector2 movementVector;
 
-    [HideInInspector] public int parts = 0;
-    [HideInInspector] public bool canControl = true;
+    [HideInInspector] public int parts;
+    [HideInInspector] public bool canControl;
 
     private bool upPressed;
     private bool downPressed;
@@ -31,6 +32,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        parts = 0;
+        canControl = true;
         health = maxHealth;
 
         rb = GetComponent<Rigidbody2D>();
@@ -124,6 +127,9 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (health < 1)
+            return;
+
         health -= damage;
 
         if (health < 1)
@@ -132,7 +138,8 @@ public class Player : MonoBehaviour
 
     private void GameOver()
     {
-        Debug.Log("oop");
+        canControl = false;
+        demoManager.Lost();
     }
 
 
