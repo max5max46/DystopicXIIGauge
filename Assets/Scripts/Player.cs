@@ -5,12 +5,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    [Header("Character Properties")]
+    [Header("Properties")]
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private float maxSpeed = 10;
     [SerializeField] private float acceleration = 10;
     [SerializeField] private float decelerationMultiplier = 0.8f;
-    
+
+    [Header("References")]
+    [SerializeField] private Shotgun shotgun;
+
     private int health;
     private Rigidbody2D rb;
     private Vector2 movementVector;
@@ -39,12 +42,17 @@ public class Player : MonoBehaviour
 
         SetMovementVector();
 
+        if (firePressed)
+            shotgun.Fire();
+
+        if (reloadPressed)
+            shotgun.Reload();
+
         ManageInputs(true);
     }
 
     private void FixedUpdate()
     {
-
         if (rb.velocity.magnitude < maxSpeed)
             rb.AddRelativeForce(movementVector);
 
@@ -74,7 +82,7 @@ public class Player : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                     firePressed = true;
 
-                if (Input.GetKey(KeyCode.Mouse1))
+                if (Input.GetKeyDown(KeyCode.Mouse1))
                     reloadPressed = true;
             }
         }
@@ -110,4 +118,5 @@ public class Player : MonoBehaviour
 
         movementVector = new Vector2(moveLeftRight, moveForwardBackward).normalized * acceleration;
     }
+
 }

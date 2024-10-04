@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class Shotgun : MonoBehaviour
 {
-    [Header("Gun Properties")]
+    [Header("Properties")]
     [SerializeField] private int gunDamage = 1;
     [SerializeField] private float shotCooldown = 0.3f;
-    [SerializeField] private int pelletCount = 10;
+    [SerializeField] private int pelletAmount = 10;
+    [SerializeField] private float pelletSpread = 15;
     [SerializeField] private float reloadTime = 0.5f;
     [SerializeField] private int clipSize = 3;
 
     [Header("References")]
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject pelletPrefab;
 
     private int bulletsInClip;
 
@@ -41,7 +43,14 @@ public class Shotgun : MonoBehaviour
         if (bulletsInClip == 0)
             return;
 
+        for (int i = 0; i < pelletAmount; i++)
+        {
+            GameObject pellet = Instantiate(pelletPrefab);
+            pellet.transform.position = transform.position;
+            pellet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, pelletSpread) + (transform.rotation.eulerAngles.z - (pelletSpread/2)));
+        }
 
+        bulletsInClip--;
     }
 
     public void Reload()
