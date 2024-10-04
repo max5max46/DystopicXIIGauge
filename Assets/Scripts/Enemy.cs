@@ -6,6 +6,11 @@ public class Enemy : MonoBehaviour
 {
     [Header("Properties")]
     [SerializeField] private int maxHealth = 3;
+    [SerializeField] private int damage = 1;
+    [SerializeField] private float speed = 0.1f;
+
+    [Header("References")]
+    [SerializeField] private GameObject player;
 
     private int health;
 
@@ -21,11 +26,14 @@ public class Enemy : MonoBehaviour
         
     }
 
+    private void FixedUpdate()
+    {
+        transform.position += (player.transform.position - transform.position).normalized * speed;
+    }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
-
-        Debug.Log("Enemy is at " + health + " Health");
 
         if (health < 1)
             Die();
@@ -33,6 +41,14 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        Destroy(this);
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Player>())
+        {
+            collision.gameObject.GetComponent<Player>().TakeDamage(damage);
+        }
     }
 }

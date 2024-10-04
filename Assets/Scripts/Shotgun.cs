@@ -12,6 +12,7 @@ public class Shotgun : MonoBehaviour
     [SerializeField] private float pelletSpread = 15;
     [SerializeField] private float reloadTime = 0.5f;
     [SerializeField] private int clipSize = 3;
+    [SerializeField] private float shotgunDisFromPlayer = 1.5f;
 
     [Header("References")]
     [SerializeField] private GameObject player;
@@ -32,7 +33,7 @@ public class Shotgun : MonoBehaviour
     {
         cursorDirection = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - player.GetComponent<Rigidbody2D>().position).normalized;
 
-        transform.position = player.GetComponent<Rigidbody2D>().position + (cursorDirection * 2);
+        transform.position = player.GetComponent<Rigidbody2D>().position + (cursorDirection * shotgunDisFromPlayer);
 
         float angle = Mathf.Atan2(cursorDirection.y, cursorDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);

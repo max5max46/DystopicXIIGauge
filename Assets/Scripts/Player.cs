@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movementVector;
 
+    [HideInInspector] public int parts = 0;
     [HideInInspector] public bool canControl = true;
 
     private bool upPressed;
@@ -30,6 +31,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = maxHealth;
+
         rb = GetComponent<Rigidbody2D>();
 
         ManageInputs(true);
@@ -119,4 +122,22 @@ public class Player : MonoBehaviour
         movementVector = new Vector2(moveLeftRight, moveForwardBackward).normalized * acceleration;
     }
 
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if (health < 1)
+            GameOver();
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("oop");
+    }
+
+
+    public void ReceiveParts(int partsToReceive)
+    {
+
+    }
 }

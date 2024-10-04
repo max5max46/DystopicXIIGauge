@@ -23,7 +23,7 @@ public class Pellet : MonoBehaviour
     void Update()
     {
         if (lifeSpanTimer > projectileLifeSpan)
-            Destroy(this.gameObject);
+            Destroy(gameObject);
 
         lifeSpanTimer += Time.deltaTime;
     }
@@ -33,12 +33,13 @@ public class Pellet : MonoBehaviour
         transform.position += transform.right * projectileSpeed * randomSpeedMultiplier;
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.GetComponent<Enemy>())
+        if (collision.GetComponent<Enemy>())
         {
-            other.GetComponent<Enemy>().TakeDamage(1);
-            Destroy(this);
+            collision.GetComponent<Enemy>().TakeDamage(1);
+            Destroy(gameObject);
         }
     }
 }
