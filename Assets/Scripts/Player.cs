@@ -7,13 +7,14 @@ public class Player : MonoBehaviour
 
     [Header("Properties")]
     public int maxHealth = 3;
+    [SerializeField] private float immunityTime = 0.5f;
     [SerializeField] private float maxSpeed = 10;
     [SerializeField] private float acceleration = 10;
     [SerializeField] private float decelerationMultiplier = 0.8f;
 
     [Header("References")]
     [SerializeField] private Shotgun shotgun;
-    [SerializeField] private DemoManager demoManager;
+    [SerializeField] private UIManager uiManager;
 
     [HideInInspector] public int health;
     private Rigidbody2D rb;
@@ -139,7 +140,7 @@ public class Player : MonoBehaviour
     private void GameOver()
     {
         canControl = false;
-        demoManager.Lost();
+        uiManager.SwitchUIScreen("results");
     }
 
 

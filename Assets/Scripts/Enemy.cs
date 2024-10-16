@@ -13,7 +13,8 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private WaveManager waveManager;
 
-    private int health;
+    [HideInInspector] public int health;
+    [HideInInspector] public bool isDead = false;
 
     // Start is called before the first frame update
     void Start()

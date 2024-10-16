@@ -12,9 +12,12 @@ public class Pellet : MonoBehaviour
     private float randomSpeedMultiplier;
     private float lifeSpanTimer;
 
+    private bool canMove;
+
     // Start is called before the first frame update
     void Start()
     {
+        canMove = true;
         lifeSpanTimer = 0;
         randomSpeedMultiplier = Random.Range(0.5f, 1.5f);
     }
@@ -30,18 +33,22 @@ public class Pellet : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (canMove)
         transform.position += transform.right * projectileSpeed * randomSpeedMultiplier;
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.GetComponent<Pellet>())
+            return;
+
         if (collision.GetComponent<Enemy>())
-        {
-            collision.GetComponent<Enemy>().TakeDamage(1);
-        }
+            if (collision.GetComponent<Enemy>().health > 0)
+                collision.GetComponent<Enemy>().TakeDamage(1);
 
-
-        Destroy(gameObject);
+        canMove = false;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
     }
 }
