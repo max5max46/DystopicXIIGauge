@@ -25,7 +25,7 @@ public class GameplayUI : MonoBehaviour
     {
         //waveText.text = "Wave " + waveManager.currentWave + "/" + waveManager.amountOfWaves;
         clipText.text = "Clip " + shotgun.shellsInClip + "/" + shotgun.clipSize;
-        partsText.text = "Parts: " + player.parts;
+        partsText.text = "GS: " + player.parts;
         healthText.text = "Health " + player.health + "/" + player.maxHealth;
     }
 }

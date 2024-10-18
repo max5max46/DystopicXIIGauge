@@ -6,9 +6,10 @@ public class WaveManager : MonoBehaviour
 {
     [Header("Properties")]
     public int amountOfWaves = 3;
+    [SerializeField] private int pointsPerWave;
 
     [Header("References")]
-    [SerializeField] private Spawner spawner;
+    [SerializeField] private Spawner[] spawners;
     [SerializeField] private UIManager uiManager;
 
     [HideInInspector] public int currentWave;
@@ -49,7 +50,7 @@ public class WaveManager : MonoBehaviour
     {
         for (int i =0; i < 10; i++)
         {
-            enemies.Add(spawner.SpawnEnemy());
+            enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy());
         }
     }
 
