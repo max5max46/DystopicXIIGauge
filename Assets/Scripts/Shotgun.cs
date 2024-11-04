@@ -21,11 +21,17 @@ public class Shotgun : MonoBehaviour
     [HideInInspector] public int shellsInClip;
 
     private Vector2 cursorDirection;
+    private float shotCooldownTimer;
+    private float reloadTimer;
+    private bool reloading;
 
     // Start is called before the first frame update
     void Start()
     {
         shellsInClip = clipSize;
+        shotCooldownTimer = 0;
+        reloadTimer = 0;
+        reloading = false;
     }
 
     // Update is called once per frame
@@ -37,12 +43,31 @@ public class Shotgun : MonoBehaviour
 
         float angle = Mathf.Atan2(cursorDirection.y, cursorDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        if (shotCooldownTimer > 0)
+            shotCooldownTimer -= Time.deltaTime;
+
+        if (reloadTimer > 0)
+            reloadTimer -= Time.deltaTime;
+
+        if (reloading)
+            Reload();
     }
 
     public void Fire()
     {
         if (shellsInClip == 0)
+        {
+            reloadTimer = reloadTime;
+            reloading = true;
             return;
+        }
+
+        if (shotCooldown > 0 || reloading == true && shellsInClip > 0)
+        {
+            reloading = false;
+            return;
+        }
 
         for (int i = 0; i < pelletAmount; i++)
         {
@@ -51,14 +76,30 @@ public class Shotgun : MonoBehaviour
             pellet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, pelletSpread) + (transform.rotation.eulerAngles.z - (pelletSpread/2)));
         }
 
+        shotCooldownTimer = shotCooldown;
         shellsInClip--;
     }
 
     public void Reload()
     {
+        if (reloading == false)
+        {
+            reloadTimer = reloadTime;
+            reloading = true;
+        }
+
         if (shellsInClip == clipSize)
+        {
+            reloading = false;
             return;
+        }
+
+        if (reloadTimer > 0)
+        {
+            return;
+        }
 
         shellsInClip++;
+        reloadTimer = reloadTime;
     }
 }
