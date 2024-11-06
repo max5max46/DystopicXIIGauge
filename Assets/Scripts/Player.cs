@@ -7,16 +7,19 @@ public class Player : MonoBehaviour
 
     [Header("Properties")]
     public int maxHealth = 3;
+    public float speedMultiplier = 1;
     [SerializeField] private float immunityTime = 0.5f;
     [SerializeField] private float maxSpeed = 5;
     [SerializeField] private float acceleration = 10;
     [SerializeField] private float decelerationMultiplier = 0.8f;
-    [SerializeField] private float reloadSpeedReduction = 0.5f;
+    public float reloadSpeedReduction = 0.5f;
 
     [Header("References")]
     [SerializeField] private Shotgun shotgun;
     [SerializeField] private UIManager uiManager;
 
+    [HideInInspector] public bool isEDSActive;
+    [HideInInspector] public bool isDRSActive;
     [HideInInspector] public int health;
     private Rigidbody2D rb;
     private Vector2 movementVector;
@@ -37,6 +40,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isEDSActive = false;
+        isDRSActive = false;
         geometricScrapInRun = 0;
         canControl = true;
         health = maxHealth;
@@ -73,7 +78,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (rb.velocity.magnitude < maxSpeed * currentReloadSpeedReduction)
+        if (rb.velocity.magnitude < (maxSpeed * speedMultiplier) * currentReloadSpeedReduction)
             rb.AddRelativeForce(movementVector);
 
         // Increases deceleration to prevent sliding
@@ -136,7 +141,7 @@ public class Player : MonoBehaviour
         if (leftPressed)
             moveLeftRight -= 1;
 
-        movementVector = new Vector2(moveLeftRight, moveForwardBackward).normalized * acceleration;
+        movementVector = new Vector2(moveLeftRight, moveForwardBackward).normalized * acceleration * speedMultiplier;
     }
 
     public void TakeDamage(int damage)

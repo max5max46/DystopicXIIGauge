@@ -6,12 +6,13 @@ using UnityEngine;
 public class Shotgun : MonoBehaviour
 {
     [Header("Properties")]
-    [SerializeField] private int gunDamage = 1;
+    public int gunDamage = 1;
     [SerializeField] private float shotCooldown = 0.3f;
-    [SerializeField] private int pelletAmount = 10;
+    public int pelletAmount = 10;
     [SerializeField] private float pelletSpread = 15;
-    [SerializeField] private float reloadTime = 0.5f;
     public int clipSize = 3;
+    public int amountOfShellsToReload = 1;
+    public float reloadTime = 0.5f;
     [SerializeField] private float shotgunDisFromPlayer = 1.5f;
 
     [Header("References")]
@@ -99,7 +100,7 @@ public class Shotgun : MonoBehaviour
             return;
         }
 
-        shellsInClip++;
+        shellsInClip += amountOfShellsToReload;
         reloadTimer = reloadTime;
     }
 }

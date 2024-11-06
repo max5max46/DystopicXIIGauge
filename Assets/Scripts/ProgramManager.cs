@@ -17,17 +17,7 @@ public class ProgramManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Gameplay")
-        {
-            player.canControl = true;
-        }
-        else if (SceneManager.GetActiveScene().name == "Menu")
-        {
-            player.canControl = false;
-        }
-
-
-
+        
     }
 
     public void SwitchSceneToGameplay()
