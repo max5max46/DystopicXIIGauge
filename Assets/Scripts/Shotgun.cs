@@ -23,7 +23,7 @@ public class Shotgun : MonoBehaviour
     private Vector2 cursorDirection;
     private float shotCooldownTimer;
     private float reloadTimer;
-    private bool reloading;
+    [HideInInspector] public bool reloading;
 
     // Start is called before the first frame update
     void Start()
@@ -63,11 +63,11 @@ public class Shotgun : MonoBehaviour
             return;
         }
 
-        if (shotCooldown > 0 || reloading == true && shellsInClip > 0)
-        {
-            reloading = false;
+        if (shotCooldownTimer > 0)
             return;
-        }
+
+        if (reloading == true && shellsInClip > 0)
+            reloading = false;
 
         for (int i = 0; i < pelletAmount; i++)
         {
