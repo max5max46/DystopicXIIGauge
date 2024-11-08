@@ -10,16 +10,16 @@ public class WaveManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Spawner[] spawners;
-    [SerializeField] private UIManager uiManager;
 
+    private RoundManager roundManager;
     [HideInInspector] public int currentWave;
     private List<GameObject> enemies;
-    private bool hasWon;
+    [HideInInspector] public bool hasWon;
 
     // Start is called before the first frame update
     void Start()
     {
-        uiManager = FindFirstObjectByType<UIManager>();
+        roundManager = FindFirstObjectByType<RoundManager>();
         enemies = new List<GameObject>();
         currentWave = 0;
         hasWon = false;
@@ -36,7 +36,7 @@ public class WaveManager : MonoBehaviour
             if (currentWave > amountOfWaves)
             {
                 currentWave--;
-                uiManager.SwitchUIScreen("results");
+                roundManager.RoundEnd(true);
                 hasWon = true;
             }
             else

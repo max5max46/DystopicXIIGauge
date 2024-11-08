@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Shotgun shotgun;
-    [SerializeField] private UIManager uiManager;
+    [SerializeField] private RoundManager roundManager;
 
     [HideInInspector] public bool isEDSActive;
     [HideInInspector] public bool isDRSActive;
@@ -153,20 +153,10 @@ public class Player : MonoBehaviour
         immunityTimer = immunityTime;
 
         if (health < 1)
-            GameOver();
+            roundManager.RoundEnd(false);
     }
 
-    private void GameOver()
-    {
-        canControl = false;
-        ManageInputs(true);
-        health = 3;
-        shotgun.shellsInClip = shotgun.clipSize;
-        uiManager.SwitchUIScreen("results");
-    }
-
-
-    public void ReceiveParts(int partsToReceive)
+    public void ReceivePartsInRun(int partsToReceive)
     {
         geometricScrapInRun += partsToReceive;
     }

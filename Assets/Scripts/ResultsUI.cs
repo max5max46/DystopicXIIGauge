@@ -14,25 +14,15 @@ public class ResultsUI : MonoBehaviour
 
     private int totalGS;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void Update()
+    public void CalculateResults(int wavesComplete, int gsPerWave)
     {
-        totalGS = player.geometricScrapInRun + player.geometricScrap + 100;
+        totalGS = player.geometricScrapInRun + player.geometricScrap + (wavesComplete * gsPerWave);
 
         enemyGSText.text = ("+" + player.geometricScrapInRun);
-        waveGSText.text = ("+" + "100"); //FILL
+        waveGSText.text = ("+" + (wavesComplete * gsPerWave));
         walletGSText.text = ("+" + player.geometricScrap);
         totalGSText.text = ("+" + (totalGS));
     }
 
-    public void GivePlayerGS()
-    {
-        player.geometricScrap = totalGS;
-    }
 }

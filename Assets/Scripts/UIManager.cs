@@ -15,8 +15,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject uiPause;
     [SerializeField] private GameObject uiResults;
     [SerializeField] private GameObject uiWin;
-    [SerializeField] private ResultsUI resultsUI;
-    [SerializeField] private Player player;
 
     private string previousUIScreenName;
     private string currentUIScreenName;
@@ -38,24 +36,10 @@ public class UIManager : MonoBehaviour
     {
         bool resetUIScreens = true;
 
-        if (name == "gameplay")
-        {
-            player.canControl = true;
-        }
-        else
-        {
-            player.canControl = false;
-        }
-
         if (name == "story")
         {
             // Get from save, if you've played the game before
             name = "upgrades";
-        }
-
-        if (name == "results")
-        {
-            resultsUI.GivePlayerGS();
         }
 
         if (name == "options")

@@ -48,7 +48,6 @@ public class E_SecuritySphere : Enemy
 
                 foreach (var collider in colliders)
                 {
-                    Debug.Log("Hit");
                     if (collider.TryGetComponent<Player>(out Player player))
                     {
                         player.TakeDamage(damage);

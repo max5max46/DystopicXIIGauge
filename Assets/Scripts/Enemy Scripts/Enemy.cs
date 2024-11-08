@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         
-        player.GetComponent<Player>().ReceiveParts(amountOfParts);
+        player.GetComponent<Player>().ReceivePartsInRun(amountOfParts);
         waveManager.EnemyDied(gameObject);
         Destroy(gameObject);
     }

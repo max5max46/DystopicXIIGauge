@@ -17,27 +17,27 @@ public class UpgradeManager : MonoBehaviour
     private Upgrade sReloadTime;
     private Upgrade sMultiShellReload;
 
-    private List<Upgrade> allUpgrades;
+    [HideInInspector] public List<Upgrade> upgrades;
 
     [Header("References")]
-    [SerializeField] private Player player;
+    public Player player;
     [SerializeField] private Shotgun shotgun;
     [SerializeField] private TextMeshProUGUI walletGSText;
-    //[SerializeField] private TextMeshProUGUI totalGSText;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        pHealth = new Upgrade(player.maxHealth, 1, 3);
-        pSpeed = new Upgrade(player.speedMultiplier, 0.2f, 3);
-        pReloadMovementReduction = new Upgrade(player.reloadSpeedReduction, 0.15f, 3);
-        pExplosiveDefenseSystem = new Upgrade(0, 1, 1);
-        pDefensiveReloadSystem = new Upgrade(0, 1, 1);
-        sDamage = new Upgrade(shotgun.gunDamage, 1, 2); 
-        sPelletAmount = new Upgrade(shotgun.pelletAmount, 2, 3);
-        sClipSize = new Upgrade(shotgun.clipSize, 1, 3);
-        sReloadTime = new Upgrade(shotgun.reloadTime, -0.05f, 3);
-        sMultiShellReload = new Upgrade(shotgun.amountOfShellsToReload, 1, 2);
+        upgrades = new List<Upgrade>();
+
+        pHealth = new Upgrade("health", player.maxHealth, 1, 3); upgrades.Add(pHealth);
+        pSpeed = new Upgrade("speed", player.speedMultiplier, 0.2f, 3); upgrades.Add(pSpeed);
+        pReloadMovementReduction = new Upgrade("reloadMovementReduction", player.reloadSpeedReduction, 0.15f, 3); upgrades.Add(pReloadMovementReduction);
+        pExplosiveDefenseSystem = new Upgrade("eds", 0, 1, 1); upgrades.Add(pExplosiveDefenseSystem);
+        pDefensiveReloadSystem = new Upgrade("drs", 0, 1, 1); upgrades.Add(pDefensiveReloadSystem);
+        sDamage = new Upgrade("damage", shotgun.gunDamage, 1, 2); upgrades.Add(sDamage);
+        sPelletAmount = new Upgrade("pelletAmount", shotgun.pelletAmount, 2, 3); upgrades.Add(sPelletAmount);
+        sClipSize = new Upgrade("clipSize", shotgun.clipSize, 1, 3); upgrades.Add(sClipSize);
+        sReloadTime = new Upgrade("reloadTime", shotgun.reloadTime, -0.05f, 3); upgrades.Add(sReloadTime);
+        sMultiShellReload = new Upgrade("multiShellReload", shotgun.amountOfShellsToReload, 1, 2); upgrades.Add(sMultiShellReload);
     }
 
     // Update is called once per frame
@@ -46,7 +46,7 @@ public class UpgradeManager : MonoBehaviour
         walletGSText.text = "GS Wallet: " + player.geometricScrap;
     }
 
-    void UpdatePlayerAndShotgunStats()
+    public void UpdatePlayerAndShotgunStats()
     {
         player.maxHealth = (int)pHealth.currentStat;
         player.speedMultiplier = pSpeed.currentStat;
