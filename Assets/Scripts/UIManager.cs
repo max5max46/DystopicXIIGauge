@@ -15,9 +15,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject uiPause;
     [SerializeField] private GameObject uiResults;
     [SerializeField] private GameObject uiWin;
+    [SerializeField] private ProgramManager programManager;
 
     private string previousUIScreenName;
-    private string currentUIScreenName;
+    [HideInInspector] public string currentUIScreenName;
 
 
     // Start is called before the first frame update
@@ -41,6 +42,15 @@ public class UIManager : MonoBehaviour
             // Get from save, if you've played the game before
             name = "upgrades";
         }
+
+        if (name == "pause" || name == "results")
+            programManager.PauseGame();
+
+        if (currentUIScreenName == "pause" && name == "pause")
+            name = "gameplay";
+
+        if (name == "upgrades" || name == "gameplay")
+            programManager.ResumeGame();
 
         if (name == "options")
             resetUIScreens = false;
@@ -115,4 +125,5 @@ public class UIManager : MonoBehaviour
         uiResults.SetActive(false);
         uiWin.SetActive(false);
     }
+
 }

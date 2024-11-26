@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [Header("References")]
     [SerializeField] private Shotgun shotgun;
     [SerializeField] private RoundManager roundManager;
+    [SerializeField] private UIManager uiManager;
 
     [HideInInspector] public bool isEDSActive;
     [HideInInspector] public bool isDRSActive;
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     private bool leftPressed;
     private bool firePressed;
     private bool reloadPressed;
+    private bool pausePressed;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +75,9 @@ public class Player : MonoBehaviour
         if (immunityTimer > 0)
             immunityTimer -= Time.deltaTime;
 
+        if (pausePressed && (uiManager.currentUIScreenName == "gameplay" || uiManager.currentUIScreenName == "pause"))
+            uiManager.SwitchUIScreen("pause");
+
         ManageInputs(true);
     }
 
@@ -109,6 +114,9 @@ public class Player : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Mouse1))
                     reloadPressed = true;
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                    pausePressed = true;
             }
         }
         else
@@ -119,6 +127,7 @@ public class Player : MonoBehaviour
             leftPressed = false;
             firePressed = false;
             reloadPressed = false;
+            pausePressed = false;
         }
     }
 

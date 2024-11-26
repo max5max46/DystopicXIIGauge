@@ -45,6 +45,9 @@ public class GameplayUI : MonoBehaviour
 
         gsText.text = "GS: " + player.geometricScrapInRun;
 
+        for (int i = 0; i < player.maxHealth; i++)
+            hearts[i].GetComponent<Pip>().TurnPipOn();
+
         if (player.maxHealth > player.health)
         {
             for (int i = 0; i < (player.maxHealth - player.health); i++)
@@ -78,7 +81,6 @@ public class GameplayUI : MonoBehaviour
 
         for (int i = 0; i < player.maxHealth; i++)
         {
-            Debug.Log(i);
             hearts[i].SetActive(true);
             hearts[i].GetComponent<Pip>().TurnPipOn();
         }

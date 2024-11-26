@@ -8,16 +8,14 @@ public class ProgramManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private Player player;
 
-    // Start is called before the first frame update
-    void Start()
+    public void PauseGame()
     {
-        
+        Time.timeScale = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResumeGame()
     {
-        
+        Time.timeScale = 1;
     }
 
     public void SwitchSceneToGameplay()

@@ -1405,6 +1405,8 @@ MonoBehaviour:
   uiPause: {fileID: 141159585}
   uiResults: {fileID: 1625402675}
   uiWin: {fileID: 596991328}
+  programManager: {fileID: 807183197}
+  currentUIScreenName: 
 --- !u!1 &74934275
 GameObject:
   m_ObjectHideFlags: 0
@@ -10313,7 +10315,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1170879164}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1183803265}
+        m_TargetAssemblyTypeName: RoundManager, Assembly-CSharp
+        m_MethodName: RoundEnd
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1170879164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11174,6 +11188,7 @@ MonoBehaviour:
   reloadSpeedReduction: 0.5
   shotgun: {fileID: 1853687202}
   roundManager: {fileID: 1183803265}
+  uiManager: {fileID: 56398530}
   isEDSActive: 0
   isDRSActive: 0
   health: 0
@@ -14750,12 +14765,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 274541134}
-  - {fileID: 1537660358}
   - {fileID: 80188183}
   - {fileID: 1389465232}
   - {fileID: 760002452}
   - {fileID: 37160505}
   - {fileID: 141159586}
+  - {fileID: 1537660358}
   - {fileID: 1625402676}
   - {fileID: 596991329}
   m_Father: {fileID: 56398529}
