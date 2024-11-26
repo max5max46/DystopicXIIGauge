@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
         {
             case "main":
                 uiMain.SetActive(true);
+                uiUpgrades.SetActive(true);
                 break;
 
             case "options":

@@ -8,19 +8,20 @@ public class UpgradeManager : MonoBehaviour
 {
     
     [Header("References")]
-    [SerializeField] private UpgradeObject pHealth;
-    [SerializeField] private UpgradeObject pSpeed;
-    [SerializeField] private UpgradeObject pReloadMovementReduction;
-    [SerializeField] private UpgradeObject pExplosiveDefenseSystem;
-    [SerializeField] private UpgradeObject pDefensiveReloadSystem;
-    [SerializeField] private UpgradeObject sDamage;
-    [SerializeField] private UpgradeObject sPelletAmount;
-    [SerializeField] private UpgradeObject sClipSize;
-    [SerializeField] private UpgradeObject sReloadTime;
-    [SerializeField] private UpgradeObject sMultiShellReload;
+    public UpgradeObject pHealth;
+    public UpgradeObject pSpeed;
+    public UpgradeObject pReloadMovementReduction;
+    public UpgradeObject pExplosiveDefenseSystem;
+    public UpgradeObject pDefensiveReloadSystem;
+    public UpgradeObject sDamage;
+    public UpgradeObject sPelletAmount;
+    public UpgradeObject sClipSize;
+    public UpgradeObject sReloadTime;
+    public UpgradeObject sMultiShellReload;
+    [SerializeField] private TextMeshProUGUI walletGSText;
     [SerializeField] private Player player;
     [SerializeField] private Shotgun shotgun;
-    [SerializeField] private TextMeshProUGUI walletGSText;
+    [SerializeField] private ProgramManager programManager;
 
     private void Start()
     {
@@ -40,12 +41,55 @@ public class UpgradeManager : MonoBehaviour
         player.reloadSpeedReduction = pReloadMovementReduction.upgrade.currentStat;
         if (pExplosiveDefenseSystem.upgrade.currentStat > 0)
             player.isEDSActive = true;
-        if (pReloadMovementReduction.upgrade.currentStat > 0)
+        if (pDefensiveReloadSystem.upgrade.currentStat > 0)
             player.isDRSActive = true;
         shotgun.gunDamage = (int)sDamage.upgrade.currentStat;
         shotgun.pelletAmount = (int)sPelletAmount.upgrade.currentStat;
         shotgun.clipSize = (int)sClipSize.upgrade.currentStat;
         shotgun.reloadTime = sReloadTime.upgrade.currentStat;
         shotgun.amountOfShellsToReload = (int)sMultiShellReload.upgrade.currentStat;
+    }
+
+    public void SetAllUpgrades(PlayerData data)
+    {
+        pHealth.upgrade.currentStat = data.pHealthCurrentStat;
+        pHealth.upgrade.currentUpgradeLevel = data.pHealthCurrentLevel;
+        pHealth.ResetUpgrade();
+
+        pSpeed.upgrade.currentStat = data.pSpeedCurrentStat;
+        pSpeed.upgrade.currentUpgradeLevel = data.pSpeedCurrentLevel;
+        pSpeed.ResetUpgrade();
+
+        pReloadMovementReduction.upgrade.currentStat = data.pReloadMovementReductionCurrentStat;
+        pReloadMovementReduction.upgrade.currentUpgradeLevel = data.pReloadMovementReductionCurrentLevel;
+        pReloadMovementReduction.ResetUpgrade();
+
+        pExplosiveDefenseSystem.upgrade.currentStat = data.pExplosiveDefenseSystemCurrentStat;
+        pExplosiveDefenseSystem.upgrade.currentUpgradeLevel = data.pExplosiveDefenseSystemCurrentLevel;
+        pExplosiveDefenseSystem.ResetUpgrade();
+
+        pDefensiveReloadSystem.upgrade.currentStat = data.pDefensiveReloadSystemCurrentStat;
+        pDefensiveReloadSystem.upgrade.currentUpgradeLevel = data.pDefensiveReloadSystemCurrentLevel;
+        pDefensiveReloadSystem.ResetUpgrade();
+
+        sDamage.upgrade.currentStat = data.sDamageCurrentStat;
+        sDamage.upgrade.currentUpgradeLevel = data.sDamageCurrentLevel;
+        sDamage.ResetUpgrade();
+
+        sPelletAmount.upgrade.currentStat = data.sPelletAmountCurrentStat;
+        sPelletAmount.upgrade.currentUpgradeLevel = data.sPelletAmountCurrentLevel;
+        sPelletAmount.ResetUpgrade();
+
+        sClipSize.upgrade.currentStat = data.sClipSizeCurrentStat;
+        sClipSize.upgrade.currentUpgradeLevel = data.sClipSizeCurrentLevel;
+        sClipSize.ResetUpgrade();
+
+        sReloadTime.upgrade.currentStat = data.sReloadTimeCurrentStat;
+        sReloadTime.upgrade.currentUpgradeLevel = data.sReloadTimeCurrentLevel;
+        sReloadTime.ResetUpgrade();
+
+        sMultiShellReload.upgrade.currentStat = data.sMultiShellReloadCurrentStat;
+        sMultiShellReload.upgrade.currentUpgradeLevel = data.sMultiShellReloadCurrentLevel;
+        sMultiShellReload.ResetUpgrade();
     }
 }

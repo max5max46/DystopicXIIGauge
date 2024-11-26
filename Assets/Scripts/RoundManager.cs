@@ -15,6 +15,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private ResultsUI resultsUI;
     [SerializeField] private GameplayUI gameplayUI;
     [SerializeField] private UpgradeManager upgradeManager;
+    [SerializeField] private ProgramManager programManager;
 
     [HideInInspector] public WaveManager waveManager;
 
@@ -57,5 +58,6 @@ public class RoundManager : MonoBehaviour
         resultsUI.CalculateResults(waveManager.currentWave, gsReceivedPerWave);
         uiManager.SwitchUIScreen("results");
         player.geometricScrap += player.geometricScrapInRun + (waveManager.currentWave * gsReceivedPerWave);
+        programManager.Save();
     }
 }

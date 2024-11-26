@@ -26,13 +26,47 @@ public class UpgradeObject : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject upgradePipPrefab;
 
-    [HideInInspector] public Upgrade upgrade;
+    [HideInInspector] public Upgrade upgrade = new Upgrade();
     private List<GameObject> upgradePips;
 
     // Start is called before the first frame update
     void Start()
     {
-        upgrade = new Upgrade(upgradeName, upgradeStartingStat, upgradeGoesUpBy, upgradeEndingLevel);
+        if (upgrade.currentUpgradeLevel == 0)
+            upgrade = new Upgrade(upgradeName, upgradeStartingStat, upgradeGoesUpBy, upgradeEndingLevel);
+        else
+        {
+            upgrade.name = upgradeName;
+            upgrade.endingUpgradeLevel = upgradeEndingLevel;
+            upgrade.goesUpBy = upgradeGoesUpBy;
+        }
+
+        ResetUpgrade();
+    }
+
+    private void Update()
+    {
+        UpdatePips();
+
+        if (mouseDetect.isMouseOver)
+            descriptionText.text = upgradeDescription;
+
+        if (upgrade.endingUpgradeLevel == upgrade.currentUpgradeLevel)
+            buyButton.enabled = false;
+
+        if (upgradeCosts.Count > upgrade.currentUpgradeLevel)
+            if (player.geometricScrap < upgradeCosts[upgrade.currentUpgradeLevel])
+                buyButton.interactable = false;
+            else
+                buyButton.interactable = true;
+
+    }
+
+    public void ResetUpgrade()
+    {
+        if (upgradePips != null)
+            foreach (GameObject upgradePip in upgradePips)
+                Destroy(upgradePip);
 
         upgradePips = new List<GameObject>();
 
@@ -55,18 +89,6 @@ public class UpgradeObject : MonoBehaviour
         UpdateStat();
     }
 
-    private void Update()
-    {
-        UpdatePips();
-
-        if (mouseDetect.isMouseOver)
-            descriptionText.text = upgradeDescription;
-
-        if (upgrade.endingUpgradeLevel == upgrade.currentUpgradeLevel)
-            buyButton.enabled = false;
-
-    }
-
     public void BuyUpgrade()
     {
         if (player.geometricScrap < upgradeCosts[upgrade.currentUpgradeLevel])
@@ -74,7 +96,6 @@ public class UpgradeObject : MonoBehaviour
 
         player.geometricScrap -= upgradeCosts[upgrade.currentUpgradeLevel];
         upgrade.LevelUp();
-
         
         UpdateCost();
         UpdateStat();
@@ -82,7 +103,7 @@ public class UpgradeObject : MonoBehaviour
 
     private void UpdateCost()
     {
-        if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
+        if (upgrade.endingUpgradeLevel > upgrade.currentUpgradeLevel)
             costText.text = "Cost: " + upgradeCosts[upgrade.currentUpgradeLevel];
         else
             costText.text = "Max";
