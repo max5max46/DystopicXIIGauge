@@ -6,38 +6,25 @@ using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
-    private Upgrade pHealth;
-    private Upgrade pSpeed;
-    private Upgrade pReloadMovementReduction;
-    private Upgrade pExplosiveDefenseSystem;
-    private Upgrade pDefensiveReloadSystem;
-    private Upgrade sDamage;
-    private Upgrade sPelletAmount;
-    private Upgrade sClipSize;
-    private Upgrade sReloadTime;
-    private Upgrade sMultiShellReload;
-
-    [HideInInspector] public List<Upgrade> upgrades;
-
+    
     [Header("References")]
-    public Player player;
+    [SerializeField] private UpgradeObject pHealth;
+    [SerializeField] private UpgradeObject pSpeed;
+    [SerializeField] private UpgradeObject pReloadMovementReduction;
+    [SerializeField] private UpgradeObject pExplosiveDefenseSystem;
+    [SerializeField] private UpgradeObject pDefensiveReloadSystem;
+    [SerializeField] private UpgradeObject sDamage;
+    [SerializeField] private UpgradeObject sPelletAmount;
+    [SerializeField] private UpgradeObject sClipSize;
+    [SerializeField] private UpgradeObject sReloadTime;
+    [SerializeField] private UpgradeObject sMultiShellReload;
+    [SerializeField] private Player player;
     [SerializeField] private Shotgun shotgun;
     [SerializeField] private TextMeshProUGUI walletGSText;
 
-    private void Awake()
+    private void Start()
     {
-        upgrades = new List<Upgrade>();
-
-        pHealth = new Upgrade("health", player.maxHealth, 1, 3); upgrades.Add(pHealth);
-        pSpeed = new Upgrade("speed", player.speedMultiplier, 0.2f, 3); upgrades.Add(pSpeed);
-        pReloadMovementReduction = new Upgrade("reloadMovementReduction", player.reloadSpeedReduction, 0.15f, 3); upgrades.Add(pReloadMovementReduction);
-        pExplosiveDefenseSystem = new Upgrade("eds", 0, 1, 1); upgrades.Add(pExplosiveDefenseSystem);
-        pDefensiveReloadSystem = new Upgrade("drs", 0, 1, 1); upgrades.Add(pDefensiveReloadSystem);
-        sDamage = new Upgrade("damage", shotgun.gunDamage, 1, 2); upgrades.Add(sDamage);
-        sPelletAmount = new Upgrade("pelletAmount", shotgun.pelletAmount, 2, 3); upgrades.Add(sPelletAmount);
-        sClipSize = new Upgrade("clipSize", shotgun.clipSize, 1, 3); upgrades.Add(sClipSize);
-        sReloadTime = new Upgrade("reloadTime", shotgun.reloadTime, -0.05f, 3); upgrades.Add(sReloadTime);
-        sMultiShellReload = new Upgrade("multiShellReload", shotgun.amountOfShellsToReload, 1, 2); upgrades.Add(sMultiShellReload);
+       
     }
 
     // Update is called once per frame
@@ -48,17 +35,17 @@ public class UpgradeManager : MonoBehaviour
 
     public void UpdatePlayerAndShotgunStats()
     {
-        player.maxHealth = (int)pHealth.currentStat;
-        player.speedMultiplier = pSpeed.currentStat;
-        player.reloadSpeedReduction = pReloadMovementReduction.currentStat;
-        if (pExplosiveDefenseSystem.currentStat > 0)
+        player.maxHealth = (int)pHealth.upgrade.currentStat;
+        player.speedMultiplier = pSpeed.upgrade.currentStat;
+        player.reloadSpeedReduction = pReloadMovementReduction.upgrade.currentStat;
+        if (pExplosiveDefenseSystem.upgrade.currentStat > 0)
             player.isEDSActive = true;
-        if (pDefensiveReloadSystem.currentStat > 0)
+        if (pReloadMovementReduction.upgrade.currentStat > 0)
             player.isDRSActive = true;
-        shotgun.gunDamage = (int)sDamage.currentStat;
-        shotgun.pelletAmount = (int)sPelletAmount.currentStat;
-        shotgun.clipSize = (int)sClipSize.currentStat;
-        shotgun.reloadTime = sReloadTime.currentStat;
-        shotgun.amountOfShellsToReload = (int)sMultiShellReload.currentStat;
+        shotgun.gunDamage = (int)sDamage.upgrade.currentStat;
+        shotgun.pelletAmount = (int)sPelletAmount.upgrade.currentStat;
+        shotgun.clipSize = (int)sClipSize.upgrade.currentStat;
+        shotgun.reloadTime = sReloadTime.upgrade.currentStat;
+        shotgun.amountOfShellsToReload = (int)sMultiShellReload.upgrade.currentStat;
     }
 }

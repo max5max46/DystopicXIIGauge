@@ -21,7 +21,7 @@ public struct Upgrade
 
     public void LevelUp()
     {
-        if (currentUpgradeLevel < endingUpgradeLevel)
+        if (currentUpgradeLevel >= endingUpgradeLevel)
             return;
 
         currentStat += goesUpBy;

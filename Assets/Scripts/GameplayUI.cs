@@ -78,6 +78,7 @@ public class GameplayUI : MonoBehaviour
 
         for (int i = 0; i < player.maxHealth; i++)
         {
+            Debug.Log(i);
             hearts[i].SetActive(true);
             hearts[i].GetComponent<Pip>().TurnPipOn();
         }
@@ -91,7 +92,7 @@ public class GameplayUI : MonoBehaviour
         int disBetweenShells;
 
         if (shotgun.clipSize % 2 == 0)
-            disBetweenShells = ((shotgun.clipSize / 2) * 22) + 11;
+            disBetweenShells = ((shotgun.clipSize / 2) * 22) - 11;
         else
             disBetweenShells = (shotgun.clipSize / 2) * 22;
 

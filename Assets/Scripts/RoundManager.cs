@@ -27,24 +27,22 @@ public class RoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "Menu")
+        if (SceneManager.GetActiveScene().name == "Menu")
         {
             waveManager = null;
             player.canControl = false;
             return;
         }
+    }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         if (scene.name == "Gameplay")
         {
             waveManager = FindAnyObjectByType<WaveManager>();
             waveManager.hasWon = false;
-            gameplayUI.ResetUI();
             upgradeManager.UpdatePlayerAndShotgunStats();
+            gameplayUI.ResetUI();
             player.canControl = true;
             player.health = player.maxHealth;
             player.geometricScrapInRun = 0;
