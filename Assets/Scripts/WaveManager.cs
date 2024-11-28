@@ -48,7 +48,7 @@ public class WaveManager : MonoBehaviour
 
     void StartWave()
     {
-        for (int i =0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy());
         }

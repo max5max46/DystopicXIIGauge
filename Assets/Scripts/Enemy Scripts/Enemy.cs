@@ -18,7 +18,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float attackCooldown;
     [SerializeField] protected float attackWindup;
     [SerializeField] protected float disFromPlayerToStartAttacking;
-    [SerializeField] protected float speed;
     [SerializeField] protected int amountOfParts;
 
     [HideInInspector] public GameObject player;
@@ -60,7 +59,7 @@ public class Enemy : MonoBehaviour
             Die();
     }
 
-    public void Die()
+    public virtual void Die()
     {
         player.GetComponent<Player>().ReceivePartsInRun(amountOfParts);
         waveManager.EnemyDied(gameObject);

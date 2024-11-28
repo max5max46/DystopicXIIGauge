@@ -1,26 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Pellet : MonoBehaviour
+public class EnemyProjectile : MonoBehaviour
 {
     [Header("Properties")]
     [SerializeField] private float projectileSpeed = 1;
     [SerializeField] private float projectileLifeSpan = 2;
 
-    private float randomSpeedMultiplier;
     private float lifeSpanTimer;
-    private bool canMove;
-
     [HideInInspector] public int damage;
 
     // Start is called before the first frame update
     void Start()
     {
-        canMove = true;
         lifeSpanTimer = 0;
-        randomSpeedMultiplier = Random.Range(0.5f, 1.5f);
     }
 
     // Update is called once per frame
@@ -34,21 +29,25 @@ public class Pellet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove)
-        transform.position += transform.right * projectileSpeed * randomSpeedMultiplier;
+        transform.position += transform.right * projectileSpeed;
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Pellet>())
+        if (collision.GetComponent<EnemyProjectile>() || collision.GetComponent<Enemy>())
             return;
 
-        if (collision.GetComponent<Enemy>())
-            if (collision.GetComponent<Enemy>().health > 0)
-                collision.GetComponent<Enemy>().TakeDamage(damage);
 
-        canMove = false;
+        if (collision.GetComponent<Player>())
+            collision.GetComponent<Player>().TakeDamage(damage);
+
+
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+    }
+
+    public void Kill()
+    {
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<CircleCollider2D>().enabled = false;
     }

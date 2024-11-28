@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class E_SecuritySphere : Enemy
+public class E_SecurityCylinder : Enemy
 {
     [Header("Additional Properties")]
     [SerializeField] private float attackRadius;
+    [SerializeField] private int damageDealtToEnemies;
 
     [Header("Additional References")]
     [SerializeField] private GameObject debugCircle;
@@ -13,8 +14,12 @@ public class E_SecuritySphere : Enemy
     [Header("DEBUG")]
     [SerializeField] private bool isVisualAttackOn = false;
 
+    [HideInInspector] public bool isExploding;
+
     private void Start()
     {
+        isExploding = false;
+
         player = FindFirstObjectByType<Player>().gameObject;
         waveManager = FindFirstObjectByType<WaveManager>();
 
@@ -51,22 +56,14 @@ public class E_SecuritySphere : Enemy
             if (attackWindupTimer < 0 && attackCooldownTimer < 0)
             {
                 Attack();
-
-                // Condition to switch to Moving
-                if (Vector2.Distance(player.transform.position, transform.position) > disFromPlayerToStartAttacking)
-                {
-                    agent.isStopped = false;
-                    state = EnemyState.Moving;
-                }
-
-                attackCooldownTimer = attackCooldown;
-                attackWindupTimer = attackWindup;
             }
         }
     }
 
     void Attack()
     {
+        isExploding = true;
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius);
 
         if (isVisualAttackOn)
@@ -75,9 +72,37 @@ public class E_SecuritySphere : Enemy
         foreach (var collider in colliders)
         {
             if (collider.TryGetComponent<Player>(out Player player))
-            {
                 player.TakeDamage(damage);
+
+            if (collider != this && collider.TryGetComponent<Enemy>(out Enemy enemy))
+            {
+                if (collider.GetComponent<E_SecurityCylinder>())
+                {
+                    if (!collider.GetComponent<E_SecurityCylinder>().isExploding)
+                    {
+                        enemy.TakeDamage(damageDealtToEnemies);
+                    }
+                }
+                else
+                {
+                    enemy.TakeDamage(damageDealtToEnemies);
+                }
+            }
+
+            if (collider != this && collider.TryGetComponent<EnemyProjectile>(out EnemyProjectile projectile))
+            {
+                projectile.Kill();
             }
         }
+
+        Die();
+    }
+
+    public override void Die()
+    {
+        if (!isExploding)
+            Attack();
+
+        base.Die();
     }
 }

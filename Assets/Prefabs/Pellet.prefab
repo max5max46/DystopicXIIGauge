@@ -156,8 +156,8 @@ GameObject:
   - component: {fileID: 3817112485003009855}
   - component: {fileID: 3820617881612386367}
   - component: {fileID: 8384170958352277315}
-  - component: {fileID: 2727773051009110367}
   - component: {fileID: 1534103397478284996}
+  - component: {fileID: 2727773051009110367}
   m_Layer: 0
   m_Name: Pellet
   m_TagString: Untagged
@@ -268,20 +268,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &2727773051009110367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6315526263229094421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d30a83e3fbda844e83500b6e14d5569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileSpeed: 1
-  projectileLifeSpan: 2
 --- !u!50 &1534103397478284996
 Rigidbody2D:
   serializedVersion: 4
@@ -309,3 +295,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &2727773051009110367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315526263229094421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d30a83e3fbda844e83500b6e14d5569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpeed: 1
+  projectileLifeSpan: 2
+  damage: 0

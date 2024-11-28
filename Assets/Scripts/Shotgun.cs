@@ -73,6 +73,7 @@ public class Shotgun : MonoBehaviour
         for (int i = 0; i < pelletAmount; i++)
         {
             GameObject pellet = Instantiate(pelletPrefab);
+            pellet.GetComponent<Pellet>().damage = gunDamage;
             pellet.transform.position = transform.position;
             pellet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, pelletSpread) + (transform.rotation.eulerAngles.z - (pelletSpread/2)));
         }
