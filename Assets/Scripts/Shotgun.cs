@@ -101,6 +101,18 @@ public class Shotgun : MonoBehaviour
         }
 
         shellsInClip += amountOfShellsToReload;
+
+        if (shellsInClip > clipSize)
+            shellsInClip = clipSize;
+
         reloadTimer = reloadTime;
+    }
+
+    public void DRSReload()
+    {
+        if (reloading)
+            reloading = false;
+
+        shellsInClip = clipSize;
     }
 }

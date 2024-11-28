@@ -1,6 +1,8 @@
+using NavMeshPlus.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -21,19 +23,30 @@ public class Enemy : MonoBehaviour
 
     [HideInInspector] public GameObject player;
     [HideInInspector] public  WaveManager waveManager;
-
     [HideInInspector] public int health;
+    [HideInInspector] public bool isDead = false;
+
+    protected NavMeshAgent agent;
     protected EnemyState state;
     protected float attackCooldownTimer;
     protected float attackWindupTimer;
-    [HideInInspector] public bool isDead = false;
 
     void Awake()
     {
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+
+
         attackCooldownTimer = 0;
         attackWindupTimer = 0;
         state = EnemyState.Moving;
         health = maxHealth;
+    }
+
+    protected virtual void Movement()
+    {
+        agent.SetDestination(player.transform.position);
     }
 
     public void TakeDamage(int damage)
@@ -49,7 +62,6 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        
         player.GetComponent<Player>().ReceivePartsInRun(amountOfParts);
         waveManager.EnemyDied(gameObject);
         Destroy(gameObject);

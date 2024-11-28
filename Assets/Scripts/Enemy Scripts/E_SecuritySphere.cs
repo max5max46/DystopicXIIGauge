@@ -22,7 +22,6 @@ public class E_SecuritySphere : Enemy
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         attackCooldownTimer -= Time.deltaTime;
@@ -32,8 +31,12 @@ public class E_SecuritySphere : Enemy
 
         if (state == EnemyState.Moving)
         {
+            Movement();
+
+            // Condition to switch to Attacking
             if (Vector2.Distance(player.transform.position, transform.position) < disFromPlayerToStartAttacking)
             {
+                agent.isStopped = true;
                 attackWindupTimer = attackWindup;
                 state = EnemyState.Attacking;
             }
@@ -44,21 +47,14 @@ public class E_SecuritySphere : Enemy
 
             if (attackWindupTimer < 0 && attackCooldownTimer < 0)
             {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius);
+                Attack();
 
-                foreach (var collider in colliders)
-                {
-                    if (collider.TryGetComponent<Player>(out Player player))
-                    {
-                        player.TakeDamage(damage);
-
-                        if (isVisualAttackOn) 
-                            debugCircle.SetActive(true);
-                    }
-                }
-
+                // Condition to switch to Moving
                 if (Vector2.Distance(player.transform.position, transform.position) > disFromPlayerToStartAttacking)
+                {
+                    agent.isStopped = false;
                     state = EnemyState.Moving;
+                }
 
                 attackCooldownTimer = attackCooldown;
                 attackWindupTimer = attackWindup;
@@ -66,16 +62,19 @@ public class E_SecuritySphere : Enemy
         }
     }
 
-    private void FixedUpdate()
+    void Attack()
     {
-        if (state == EnemyState.Moving)
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius);
+
+        foreach (var collider in colliders)
         {
-            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            transform.position += (player.transform.position - transform.position).normalized * speed;
-        }
-        else if (state == EnemyState.Attacking)
-        {
-            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            if (collider.TryGetComponent<Player>(out Player player))
+            {
+                player.TakeDamage(damage);
+
+                if (isVisualAttackOn)
+                    debugCircle.SetActive(true);
+            }
         }
     }
 }

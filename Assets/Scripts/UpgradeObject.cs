@@ -32,15 +32,6 @@ public class UpgradeObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (upgrade.currentUpgradeLevel == 0)
-            upgrade = new Upgrade(upgradeName, upgradeStartingStat, upgradeGoesUpBy, upgradeEndingLevel);
-        else
-        {
-            upgrade.name = upgradeName;
-            upgrade.endingUpgradeLevel = upgradeEndingLevel;
-            upgrade.goesUpBy = upgradeGoesUpBy;
-        }
-
         ResetUpgrade();
     }
 
@@ -64,6 +55,15 @@ public class UpgradeObject : MonoBehaviour
 
     public void ResetUpgrade()
     {
+        if (upgrade.currentUpgradeLevel == 0)
+            upgrade = new Upgrade(upgradeName, upgradeStartingStat, upgradeGoesUpBy, upgradeEndingLevel);
+        else
+        {
+            upgrade.name = upgradeName;
+            upgrade.endingUpgradeLevel = upgradeEndingLevel;
+            upgrade.goesUpBy = upgradeGoesUpBy;
+        }
+
         if (upgradePips != null)
             foreach (GameObject upgradePip in upgradePips)
                 Destroy(upgradePip);
@@ -111,10 +111,16 @@ public class UpgradeObject : MonoBehaviour
 
     private void UpdateStat()
     {
-        if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
-            statText.text = upgrade.currentStat + "  >  " + (upgrade.currentStat + upgrade.goesUpBy);
+        if (upgrade.endingUpgradeLevel > 1)
+            if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
+                statText.text = upgrade.currentStat + "  >  " + (upgrade.currentStat + upgrade.goesUpBy);
+            else
+                statText.text = upgrade.currentStat.ToString();
         else
-            statText.text = upgrade.currentStat.ToString();
+            if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
+                statText.text = "Inactive";
+            else
+                statText.text = "Activated";
     }
 
     private void UpdatePips()

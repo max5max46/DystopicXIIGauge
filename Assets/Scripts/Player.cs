@@ -161,6 +161,9 @@ public class Player : MonoBehaviour
         health -= damage;
         immunityTimer = immunityTime;
 
+        if (isDRSActive)
+            shotgun.DRSReload();
+
         if (health < 1)
             roundManager.RoundEnd(false);
     }

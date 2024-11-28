@@ -37,11 +37,8 @@ public class UIManager : MonoBehaviour
     {
         bool resetUIScreens = true;
 
-        if (name == "story")
-        {
-            // Get from save, if you've played the game before
+        if (name == "story" && programManager.DoesSaveExist())
             name = "upgrades";
-        }
 
         if (name == "pause" || name == "results")
             programManager.PauseGame();
