@@ -5,26 +5,10 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private GameObject enemyPrefab;
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public WaveManager waveManager;
 
-    private GameObject player;
-    private WaveManager waveManager;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = FindFirstObjectByType<Player>().gameObject;
-        waveManager = FindFirstObjectByType<WaveManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public GameObject SpawnEnemy()
+    public GameObject SpawnEnemy(GameObject enemyPrefab)
     {
         GameObject enemy = Instantiate(enemyPrefab);
         enemy.GetComponent<Enemy>().player = player;

@@ -20,9 +20,6 @@ public class E_SecurityCylinder : Enemy
     {
         isExploding = false;
 
-        player = FindFirstObjectByType<Player>().gameObject;
-        waveManager = FindFirstObjectByType<WaveManager>();
-
         if (isVisualAttackOn)
         {
             debugCircle.SetActive(false);
@@ -53,6 +50,9 @@ public class E_SecurityCylinder : Enemy
         {
             attackWindupTimer -= Time.deltaTime;
 
+            if (isVisualAttackOn)
+                debugCircle.SetActive(true);
+
             if (attackWindupTimer < 0 && attackCooldownTimer < 0)
             {
                 Attack();
@@ -65,9 +65,6 @@ public class E_SecurityCylinder : Enemy
         isExploding = true;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius);
-
-        if (isVisualAttackOn)
-            debugCircle.SetActive(true);
 
         foreach (var collider in colliders)
         {
@@ -95,14 +92,13 @@ public class E_SecurityCylinder : Enemy
             }
         }
 
-        Die();
+        player.GetComponent<Player>().ReceivePartsInRun(amountOfParts);
+        waveManager.EnemyDied(gameObject);
+        Destroy(gameObject);
     }
 
     public override void Die()
     {
-        if (!isExploding)
-            Attack();
-
-        base.Die();
+        state = EnemyState.Attacking;
     }
 }

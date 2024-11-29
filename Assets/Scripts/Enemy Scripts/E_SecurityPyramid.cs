@@ -14,12 +14,6 @@ public class E_SecurityPyramid : Enemy
     [SerializeField] private GameObject projectilePrefab;
 
 
-    private void Start()
-    {
-        player = FindFirstObjectByType<Player>().gameObject;
-        waveManager = FindFirstObjectByType<WaveManager>();
-    }
-
     void Update()
     {
         attackCooldownTimer -= Time.deltaTime;

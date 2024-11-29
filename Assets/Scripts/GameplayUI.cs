@@ -38,7 +38,7 @@ public class GameplayUI : MonoBehaviour
     {
         if (roundManager.waveManager)
         {
-            waveText.text = "Wave " + roundManager.waveManager.currentWave + "/" + roundManager.waveManager.amountOfWaves;
+            waveText.text = "Wave " + roundManager.waveManager.currentWave + "/" + roundManager.waveManager.wavePoints.Count;
         }
 
         waveProgressBar.GetComponent<Image>().fillAmount = 1; //fill

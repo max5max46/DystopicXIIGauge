@@ -497,7 +497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38d2793fa9663d4f8dae2f855f17bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3771411152235641254, guid: 3feb2c9d1aa37c54ab8bccdc6e2b4a90, type: 3}
+  player: {fileID: 0}
+  waveManager: {fileID: 0}
 --- !u!212 &80782060
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -888,15 +889,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83dbc8cb3bb89784bb455e9794e34366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfWaves: 3
-  pointsPerWave: 0
+  wavePoints: 050000000a0000000f00000014000000190000001e00000023000000280000002d00000032000000
+  gsPerWave: 500
+  securitySpherePointVal: 1
+  securityPyramidPointVal: 2
+  supSecuritySpherePointVal: 4
+  supSecurityPyramidPointVal: 5
+  securityCylinderPointVal: 2
+  securitySphereWaveToBeginSpawning: 0
+  securityPyramidWaveToBeginSpawning: 2
+  supSecuritySphereWaveToBeginSpawning: 7
+  supSecurityPyramidWaveToBeginSpawning: 8
+  securityCylinderWaveToBeginSpawning: 5
   spawners:
   - {fileID: 1438468191}
   - {fileID: 80782059}
   - {fileID: 681236097}
   - {fileID: 1463863899}
-  currentWave: 0
+  securitySpherePrefab: {fileID: 3771411152235641254, guid: 3feb2c9d1aa37c54ab8bccdc6e2b4a90, type: 3}
+  securityPyramidPrefab: {fileID: 1729838255740968254, guid: 0d969bfd373c7e44a8232ebfe1a5185e, type: 3}
+  supSecuritySpherePrefab: {fileID: 8712006481651711679, guid: 3fb4e4b86da7a734e9a974bf7fe2af4d, type: 3}
+  supSecurityPyramidPrefab: {fileID: 6665323084276105899, guid: 877b729548e62c4409153f6b00800599, type: 3}
+  securityCylinderPrefab: {fileID: 6295168162664642190, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
   hasWon: 0
+  currentWave: 0
 --- !u!1 &429871751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,7 +1666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38d2793fa9663d4f8dae2f855f17bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3771411152235641254, guid: 3feb2c9d1aa37c54ab8bccdc6e2b4a90, type: 3}
+  player: {fileID: 0}
+  waveManager: {fileID: 0}
 --- !u!212 &681236098
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3253,7 +3270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38d2793fa9663d4f8dae2f855f17bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3771411152235641254, guid: 3feb2c9d1aa37c54ab8bccdc6e2b4a90, type: 3}
+  player: {fileID: 0}
+  waveManager: {fileID: 0}
 --- !u!212 &1438468192
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3351,7 +3369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38d2793fa9663d4f8dae2f855f17bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3771411152235641254, guid: 3feb2c9d1aa37c54ab8bccdc6e2b4a90, type: 3}
+  player: {fileID: 0}
+  waveManager: {fileID: 0}
 --- !u!212 &1463863900
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4848,63 +4867,6 @@ MonoBehaviour:
   m_MinRegionArea: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: 87f26e6380ff76944bd6f58b085b1eba, type: 2}
---- !u!1001 &7799471136644387511
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471837023902783752, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6295168162664642190, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
-      propertyPath: m_Name
-      value: E_UnstableSecurityCylinder
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8da1e66407c2c5845a151a3f9b9bc498, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4912,4 +4874,3 @@ SceneRoots:
   - {fileID: 364947440}
   - {fileID: 75383474}
   - {fileID: 755996281}
-  - {fileID: 7799471136644387511}

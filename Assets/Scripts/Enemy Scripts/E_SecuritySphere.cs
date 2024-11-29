@@ -15,9 +15,6 @@ public class E_SecuritySphere : Enemy
 
     private void Start()
     {
-        player = FindFirstObjectByType<Player>().gameObject;
-        waveManager = FindFirstObjectByType<WaveManager>();
-
         if (isVisualAttackOn)
         {
             debugCircle.SetActive(false);
