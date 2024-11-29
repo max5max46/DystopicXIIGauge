@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 
 public class E_SecurityPyramid : Enemy
 {
