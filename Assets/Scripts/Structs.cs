@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,8 @@ public struct Upgrade
             return;
 
         currentStat += goesUpBy;
+        currentStat = (float)Math.Round(currentStat, 3);
+
         currentUpgradeLevel++;
     }
 }

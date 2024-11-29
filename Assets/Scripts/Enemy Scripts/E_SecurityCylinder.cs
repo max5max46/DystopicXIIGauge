@@ -99,6 +99,8 @@ public class E_SecurityCylinder : Enemy
 
     public override void Die()
     {
+        agent.isStopped = true;
+        attackWindupTimer = attackWindup;
         state = EnemyState.Attacking;
     }
 }

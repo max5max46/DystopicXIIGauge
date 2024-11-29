@@ -23,7 +23,7 @@ public class Shotgun : MonoBehaviour
 
     private Vector2 cursorDirection;
     private float shotCooldownTimer;
-    private float reloadTimer;
+    [HideInInspector] public float reloadTimer;
     [HideInInspector] public bool reloading;
 
     // Start is called before the first frame update
@@ -59,8 +59,11 @@ public class Shotgun : MonoBehaviour
     {
         if (shellsInClip == 0)
         {
-            reloadTimer = reloadTime;
-            reloading = true;
+            if (!reloading)
+            {
+                reloadTimer = reloadTime;
+                reloading = true;
+            }
             return;
         }
 

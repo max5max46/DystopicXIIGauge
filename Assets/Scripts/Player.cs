@@ -13,11 +13,16 @@ public class Player : MonoBehaviour
     [SerializeField] private float acceleration = 10;
     [SerializeField] private float decelerationMultiplier = 0.8f;
     public float reloadSpeedReduction = 0.5f;
+    [SerializeField] private float edsRadious;
+    [SerializeField] private int edsDamage;
 
     [Header("References")]
     [SerializeField] private Shotgun shotgun;
     [SerializeField] private RoundManager roundManager;
     [SerializeField] private UIManager uiManager;
+
+    [Header("Debug")]
+    [SerializeField] private bool godMode = false;
 
     [HideInInspector] public bool isEDSActive;
     [HideInInspector] public bool isDRSActive;
@@ -155,7 +160,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (health < 1 || immunityTimer > 0 || !canControl)
+        if (health < 1 || immunityTimer > 0 || !canControl || godMode)
             return;
 
         health -= damage;
@@ -164,6 +169,9 @@ public class Player : MonoBehaviour
         if (isDRSActive)
             shotgun.DRSReload();
 
+        if (isEDSActive)
+            ExplosiveDefenseSystem();
+
         if (health < 1)
             roundManager.RoundEnd(false);
     }
@@ -171,5 +179,23 @@ public class Player : MonoBehaviour
     public void ReceivePartsInRun(int partsToReceive)
     {
         geometricScrapInRun += partsToReceive;
+    }
+
+    private void ExplosiveDefenseSystem()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, edsRadious);
+
+        foreach (var collider in colliders)
+        {
+            if (collider.TryGetComponent<Enemy>(out Enemy enemy))
+            {
+                enemy.TakeDamage(edsDamage);
+            }
+
+            if (collider.TryGetComponent<EnemyProjectile>(out EnemyProjectile projectile))
+            {
+                projectile.Kill();
+            }
+        }
     }
 }

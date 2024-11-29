@@ -6,10 +6,10 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     [Header("Properties")]
-    [SerializeField] private float projectileSpeed = 1;
     [SerializeField] private float projectileLifeSpan = 2;
 
     private float lifeSpanTimer;
+    [HideInInspector] public float projectileSpeed = 0;
     [HideInInspector] public int damage;
 
     // Start is called before the first frame update

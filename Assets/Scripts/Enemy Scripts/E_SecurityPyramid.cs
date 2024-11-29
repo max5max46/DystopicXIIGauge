@@ -8,6 +8,7 @@ public class E_SecurityPyramid : Enemy
 {
     [Header("Additional Properties")]
     [SerializeField] private LayerMask raycastLayerMask;
+    [SerializeField] private float projectileSpeed;
     [SerializeField] private Color projectileColor;
 
     [Header("Additional References")]
@@ -56,14 +57,17 @@ public class E_SecurityPyramid : Enemy
     void Attack()
     {
         GameObject projectile = Instantiate(projectilePrefab);
+
         projectile.GetComponent<EnemyProjectile>().damage = damage;
+        projectile.GetComponent<EnemyProjectile>().projectileSpeed = projectileSpeed;
         projectile.GetComponent<SpriteRenderer>().color = projectileColor;
+        
         projectile.transform.position = new Vector3 (transform.position.x , transform.position.y, 0);
 
         Vector3 vectorToTarget = Quaternion.Euler(0, 0, 90) * (player.transform.position - transform.position);
         Quaternion lookDirection = Quaternion.LookRotation(Vector3.forward, vectorToTarget);
-
         projectile.transform.rotation = Quaternion.Euler(0, 0, lookDirection.eulerAngles.z);
+
         
     }
 }

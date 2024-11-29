@@ -55,9 +55,18 @@ public class RoundManager : MonoBehaviour
     public void RoundEnd(bool hasWon)
     {
         player.canControl = false;
-        resultsUI.CalculateResults(waveManager.currentWave, gsReceivedPerWave);
-        uiManager.SwitchUIScreen("results");
-        player.geometricScrap += player.geometricScrapInRun + (waveManager.currentWave * gsReceivedPerWave);
+        resultsUI.CalculateResults(waveManager.currentWave - 1, gsReceivedPerWave);
+        player.geometricScrap += player.geometricScrapInRun + ((waveManager.currentWave - 1) * gsReceivedPerWave);
         programManager.Save();
+
+        if (hasWon)
+        {
+            programManager.SwitchSceneToMenu();
+            uiManager.SwitchUIScreen("win");
+        }
+        else
+        {
+            uiManager.SwitchUIScreen("results");
+        }
     }
 }

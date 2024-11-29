@@ -1,11 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UpgradeObject : MonoBehaviour
 {
+    enum NumberFormat
+    {
+        Normal,
+        Percentage,
+        PlusPercentage,
+        Time,
+        Single
+    }
+
     [Header("Properties")]
     [SerializeField] private string upgradeName;
     [SerializeField] private float upgradeStartingStat;
@@ -13,6 +23,7 @@ public class UpgradeObject : MonoBehaviour
     [SerializeField] private int upgradeEndingLevel;
     [SerializeField] [TextArea (10,7)] private string upgradeDescription;
     [SerializeField] private List<int> upgradeCosts;
+    [SerializeField] private NumberFormat numberFormat;
 
     [Header("References")]
     [SerializeField] private TextMeshProUGUI costText;
@@ -104,23 +115,50 @@ public class UpgradeObject : MonoBehaviour
     private void UpdateCost()
     {
         if (upgrade.endingUpgradeLevel > upgrade.currentUpgradeLevel)
-            costText.text = "Cost: " + upgradeCosts[upgrade.currentUpgradeLevel];
+            costText.text = "Cost: " + string.Format(CultureInfo.InvariantCulture, "{0:N0}", upgradeCosts[upgrade.currentUpgradeLevel]);
         else
             costText.text = "Max";
     }
 
     private void UpdateStat()
     {
-        if (upgrade.endingUpgradeLevel > 1)
-            if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
-                statText.text = upgrade.currentStat + "  >  " + (upgrade.currentStat + upgrade.goesUpBy);
-            else
-                statText.text = upgrade.currentStat.ToString();
-        else
-            if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
-                statText.text = "Inactive";
-            else
-                statText.text = "Activated";
+        switch (numberFormat)
+        {
+            case NumberFormat.Normal:
+                if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
+                    statText.text = upgrade.currentStat + "  >  " + (upgrade.currentStat + upgrade.goesUpBy);
+                else
+                    statText.text = upgrade.currentStat.ToString();
+                break;
+
+            case NumberFormat.Percentage:
+                if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
+                    statText.text = (upgrade.currentStat * 100) + "%" + "  >  " + ((upgrade.currentStat + upgrade.goesUpBy) * 100) + "%";
+                else
+                    statText.text = (upgrade.currentStat * 100) + "%";
+                break;
+
+            case NumberFormat.PlusPercentage:
+                if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
+                    statText.text = "+" + ((upgrade.currentStat - upgradeStartingStat) * 100) + "%" + "  >  " + "+" + ((upgrade.currentStat + upgrade.goesUpBy - upgradeStartingStat) * 100) + "%";
+                else
+                    statText.text = "+" + ((upgrade.currentStat - upgradeStartingStat) * 100) + "%";
+                break;
+
+            case NumberFormat.Time:
+                if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
+                    statText.text = upgrade.currentStat + "s" + "  >  " + (upgrade.currentStat + upgrade.goesUpBy) + "s";
+                else
+                    statText.text = upgrade.currentStat + "s";
+                break;
+
+            case NumberFormat.Single:
+                if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
+                    statText.text = "Inactive";
+                else
+                    statText.text = "Activated";
+                break;
+        }
     }
 
     private void UpdatePips()

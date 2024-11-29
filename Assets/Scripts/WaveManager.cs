@@ -14,6 +14,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private int supSecuritySpherePointVal;
     [SerializeField] private int supSecurityPyramidPointVal;
     [SerializeField] private int securityCylinderPointVal;
+    [SerializeField] private int headOfSecurityPointVal;
 
     [Header("Enemy Wave to Begin Spawning")]
     [SerializeField] private int securitySphereWaveToBeginSpawning;
@@ -21,6 +22,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private int supSecuritySphereWaveToBeginSpawning;
     [SerializeField] private int supSecurityPyramidWaveToBeginSpawning;
     [SerializeField] private int securityCylinderWaveToBeginSpawning;
+    [SerializeField] private int headOfSecurityWaveToBeginSpawning;
 
     [Header("References")]
     [SerializeField] private Spawner[] spawners;
@@ -29,13 +31,18 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject supSecuritySpherePrefab;
     [SerializeField] private GameObject supSecurityPyramidPrefab;
     [SerializeField] private GameObject securityCylinderPrefab;
+    [SerializeField] private GameObject headOfSecurityPrefab;
 
     private RoundManager roundManager;
     private GameObject player;
-    private List<GameObject> enemies;
 
+    [HideInInspector] public List<GameObject> enemies;
+    [HideInInspector] public int totalEnemiesInCurrentWave;
     [HideInInspector] public bool hasWon;
     [HideInInspector] public int currentWave;
+
+    [Header("Debug")]
+    [SerializeField] private bool disableWaves = false;
 
     // Start is called before the first frame update
     void Start()
@@ -56,8 +63,9 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("Current Enemies Alive: " + enemies.Count + "   Total Enemies: " + totalEnemiesInCurrentWave);
         
-        if (enemies.Count == 0 && !hasWon)
+        if (enemies.Count == 0 && !hasWon && !disableWaves)
         {
 
             if (currentWave >= wavePoints.Count)
@@ -76,6 +84,8 @@ public class WaveManager : MonoBehaviour
 
     void StartWave()
     {
+        totalEnemiesInCurrentWave = 0;
+
         int points = wavePoints[currentWave];
 
         List<int> idsToSpawn = new List<int>();
@@ -95,6 +105,14 @@ public class WaveManager : MonoBehaviour
         if (securityCylinderWaveToBeginSpawning <= currentWave)
             idsToSpawn.Add(4);
 
+        // Boss Spawn
+        if (headOfSecurityWaveToBeginSpawning <= currentWave)
+        {
+            points -= headOfSecurityPointVal;
+            totalEnemiesInCurrentWave++;
+            enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(headOfSecurityPrefab));
+        }
+
         if (idsToSpawn.Count == 0)
         {
             Debug.LogError("No enemies can spawn on wave 1");
@@ -111,6 +129,7 @@ public class WaveManager : MonoBehaviour
                     if (points >= securitySpherePointVal)
                     {
                         points -= securitySpherePointVal;
+                        totalEnemiesInCurrentWave++;
                         enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(securitySpherePrefab));
                     }
                     break;
@@ -119,6 +138,7 @@ public class WaveManager : MonoBehaviour
                     if (points >= securityPyramidPointVal)
                     {
                         points -= securityPyramidPointVal;
+                        totalEnemiesInCurrentWave++;
                         enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(securityPyramidPrefab));
                     }
                     break;
@@ -127,6 +147,7 @@ public class WaveManager : MonoBehaviour
                     if (points >= supSecuritySpherePointVal)
                     {
                         points -= supSecuritySpherePointVal;
+                        totalEnemiesInCurrentWave++;
                         enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(supSecuritySpherePrefab));
                     }
                     break;
@@ -135,6 +156,7 @@ public class WaveManager : MonoBehaviour
                     if (points >= supSecurityPyramidPointVal)
                     {
                         points -= supSecurityPyramidPointVal;
+                        totalEnemiesInCurrentWave++;
                         enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(supSecurityPyramidPrefab));
                     }
                     break;
@@ -143,6 +165,7 @@ public class WaveManager : MonoBehaviour
                     if (points >= securityCylinderPointVal)
                     {
                         points -= securityCylinderPointVal;
+                        totalEnemiesInCurrentWave++;
                         enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(securityCylinderPrefab));
                     }
                     break;

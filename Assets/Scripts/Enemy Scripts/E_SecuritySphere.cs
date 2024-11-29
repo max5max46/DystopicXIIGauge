@@ -15,10 +15,13 @@ public class E_SecuritySphere : Enemy
 
     private void Start()
     {
+        waveManager = FindFirstObjectByType<WaveManager>();
+        player = FindFirstObjectByType<Player>().gameObject;
+
         if (isVisualAttackOn)
         {
             debugCircle.SetActive(false);
-            debugCircle.transform.localScale = new Vector3(attackRadius * 2, attackRadius * 2);
+            debugCircle.transform.localScale = new Vector3(attackRadius * 2 / transform.localScale.x, attackRadius * 2 / transform.localScale.y);
         }
     }
 

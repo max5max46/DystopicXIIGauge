@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Singleton : MonoBehaviour
 {
-    // Start is called before the first frame update
     static Singleton instance;
-    void Start()
+    void Awake()
     {
         if (instance != null)
         {

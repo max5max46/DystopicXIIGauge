@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private GameObject waveProgressBar;
     [SerializeField] private TextMeshProUGUI gsText;
+    [SerializeField] private GameObject reloadTimeIndicator;
     [SerializeField] private GameObject heart1;
     [SerializeField] private GameObject heart2;
     [SerializeField] private GameObject heart3;
@@ -39,11 +41,14 @@ public class GameplayUI : MonoBehaviour
         if (roundManager.waveManager)
         {
             waveText.text = "Wave " + roundManager.waveManager.currentWave + "/" + roundManager.waveManager.wavePoints.Count;
+
+            if (roundManager.waveManager.totalEnemiesInCurrentWave > 0)
+                waveProgressBar.GetComponent<Image>().fillAmount = (1 - ((float)roundManager.waveManager.enemies.Count / (float)roundManager.waveManager.totalEnemiesInCurrentWave));
+            else
+                waveProgressBar.GetComponent<Image>().fillAmount = 0;
         }
 
-        waveProgressBar.GetComponent<Image>().fillAmount = 1; //fill
-
-        gsText.text = "GS: " + player.geometricScrapInRun;
+        gsText.text = "GS: " + string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrapInRun);
 
         for (int i = 0; i < player.maxHealth; i++)
             hearts[i].GetComponent<Pip>().TurnPipOn();
@@ -55,6 +60,11 @@ public class GameplayUI : MonoBehaviour
                 hearts[i + player.health].GetComponent<Pip>().TurnPipOff();
             }
         }
+
+        if (shotgun.reloading)
+            reloadTimeIndicator.GetComponent<Image>().fillAmount = Mathf.Clamp(shotgun.reloadTimer / shotgun.reloadTime, 0, 1);
+        else
+            reloadTimeIndicator.GetComponent<Image>().fillAmount = 0;
 
         foreach (GameObject shell in shells)
             shell.GetComponent<Pip>().TurnPipOn();
@@ -97,6 +107,8 @@ public class GameplayUI : MonoBehaviour
             disBetweenShells = ((shotgun.clipSize / 2) * 22) - 11;
         else
             disBetweenShells = (shotgun.clipSize / 2) * 22;
+
+        reloadTimeIndicator.GetComponent<RectTransform>().localPosition = new Vector2(disBetweenShells + 40, 75);
 
         for (int i = 0; i < shotgun.clipSize; i++)
         {

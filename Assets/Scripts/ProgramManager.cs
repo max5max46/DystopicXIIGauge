@@ -18,12 +18,6 @@ public class ProgramManager : MonoBehaviour
         Load();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-            DeleteSave();
-    }
-
     public void PauseGame()
     {
         Time.timeScale = 0;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 
@@ -19,10 +20,10 @@ public class ResultsUI : MonoBehaviour
     {
         totalGS = player.geometricScrapInRun + player.geometricScrap + (wavesComplete * gsPerWave);
 
-        enemyGSText.text = ("+" + player.geometricScrapInRun);
-        waveGSText.text = ("+" + (wavesComplete * gsPerWave));
-        walletGSText.text = ("+" + player.geometricScrap);
-        totalGSText.text = ("+" + (totalGS));
+        enemyGSText.text = "+" + string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrapInRun);
+        waveGSText.text = "+" + string.Format(CultureInfo.InvariantCulture, "{0:N0}", (wavesComplete * gsPerWave));
+        walletGSText.text = string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrap);
+        totalGSText.text = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalGS);
     }
 
 }

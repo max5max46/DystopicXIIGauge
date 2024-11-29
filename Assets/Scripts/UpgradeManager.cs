@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -23,6 +24,9 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private Shotgun shotgun;
     [SerializeField] private ProgramManager programManager;
 
+    [Header("DEBUG")]
+    [SerializeField] private bool moneyCheat = false;
+
     private void Start()
     {
        
@@ -31,7 +35,10 @@ public class UpgradeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        walletGSText.text = "GS Wallet: " + player.geometricScrap;
+        if (moneyCheat && Input.GetKeyDown(KeyCode.M))
+            player.geometricScrap += 100000;
+
+        walletGSText.text = "GS Wallet: " + string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrap);
     }
 
     public void UpdatePlayerAndShotgunStats()
