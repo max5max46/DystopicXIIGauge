@@ -73,12 +73,20 @@ public class Shotgun : MonoBehaviour
         if (reloading == true && shellsInClip > 0)
             reloading = false;
 
+        bool isFirstPellet = true;
+
         for (int i = 0; i < pelletAmount; i++)
         {
             GameObject pellet = Instantiate(pelletPrefab);
             pellet.GetComponent<Pellet>().damage = gunDamage;
             pellet.transform.position = transform.position;
-            pellet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, pelletSpread) + (transform.rotation.eulerAngles.z - (pelletSpread/2)));
+            if (isFirstPellet)
+            {
+                pellet.transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
+                isFirstPellet = false;
+            }
+            else
+                pellet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, pelletSpread) + (transform.rotation.eulerAngles.z - (pelletSpread / 2)));
         }
 
         shotCooldownTimer = shotCooldown;

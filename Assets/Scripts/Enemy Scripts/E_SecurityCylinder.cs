@@ -29,7 +29,8 @@ public class E_SecurityCylinder : Enemy
 
     void Update()
     {
-        attackCooldownTimer -= Time.deltaTime;
+        if (attackCooldownTimer >= 0)
+            attackCooldownTimer -= Time.deltaTime;
 
         if (isVisualAttackOn && attackCooldownTimer < 0)
             debugCircle.SetActive(false);

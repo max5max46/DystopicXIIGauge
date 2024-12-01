@@ -6,71 +6,105 @@ public class E_SecuritySphere : Enemy
 {
     [Header("Additional Properties")]
     [SerializeField] private float attackRadius;
+    [SerializeField] private float attackEndLag;
 
     [Header("Additional References")]
-    [SerializeField] private GameObject debugCircle;
+    [SerializeField] private GameObject slamAttackVisualPrefab;
 
     [Header("DEBUG")]
     [SerializeField] private bool isVisualAttackOn = false;
 
+    private float attackEndLagTimer;
+    private bool hasAttacked;
+
     private void Start()
     {
+        hasAttacked = false;
+        attackEndLagTimer = 0;
+
         waveManager = FindFirstObjectByType<WaveManager>();
         player = FindFirstObjectByType<Player>().gameObject;
 
-        if (isVisualAttackOn)
-        {
-            debugCircle.SetActive(false);
-            debugCircle.transform.localScale = new Vector3(attackRadius * 2 / transform.localScale.x, attackRadius * 2 / transform.localScale.y);
-        }
     }
 
     void Update()
     {
-        attackCooldownTimer -= Time.deltaTime;
-
-        if (isVisualAttackOn && attackCooldownTimer < 0)
-            debugCircle.SetActive(false);
-
-        if (state == EnemyState.Moving)
+        if (stunTimer < 0)
         {
-            Movement();
+            if (attackCooldownTimer >= 0)
+                attackCooldownTimer -= Time.deltaTime;
 
-            // Condition to switch to Attacking
-            if (Vector2.Distance(player.transform.position, transform.position) < disFromPlayerToStartAttacking)
+            if (state == EnemyState.Moving)
             {
-                agent.isStopped = true;
-                attackWindupTimer = attackWindup;
-                state = EnemyState.Attacking;
-            }
-        }
-        else if (state == EnemyState.Attacking)
-        {
-            attackWindupTimer -= Time.deltaTime;
+                Movement();
 
-            if (attackWindupTimer < 0 && attackCooldownTimer < 0)
-            {
-                Attack();
-
-                // Condition to switch to Moving
-                if (Vector2.Distance(player.transform.position, transform.position) > disFromPlayerToStartAttacking)
+                // Condition to switch to Attacking
+                if (Vector2.Distance(player.transform.position, transform.position) < disFromPlayerToStartAttacking)
                 {
-                    agent.isStopped = false;
-                    state = EnemyState.Moving;
+                    agent.isStopped = true;
+                    attackWindupTimer = attackWindup;
+                    state = EnemyState.Attacking;
                 }
+            }
+            else if (state == EnemyState.Attacking)
+            {
+                
+                attackWindupTimer -= Time.deltaTime;
 
-                attackCooldownTimer = attackCooldown;
-                attackWindupTimer = attackWindup;
+                if (attackWindupTimer < 0 && attackCooldownTimer < 0)
+                {
+                    if (attackEndLagTimer <= 0)
+                    {
+                        if (!hasAttacked)
+                        {
+                            Attack();
+                            attackEndLagTimer = attackEndLag;
+                            hasAttacked = true;
+
+                        }
+                        else
+                        {
+                            // Condition to switch to Moving
+                            if (Vector2.Distance(player.transform.position, transform.position) > disFromPlayerToStartAttacking)
+                            {
+                                state = EnemyState.Moving;
+                            }
+
+                            attackCooldownTimer = attackCooldown;
+                            attackWindupTimer = attackWindup;
+                            hasAttacked = false;
+                        }
+                    }
+                    else
+                    {
+                        attackEndLagTimer -= Time.deltaTime;
+                    }
+                }
+                else
+                {
+                    // Condition to switch to Moving
+                    if (Vector2.Distance(player.transform.position, transform.position) > disFromPlayerToStartAttacking)
+                    {
+                        state = EnemyState.Moving;
+                    }
+                }
             }
         }
+        else
+        {
+            agent.isStopped = true;
+            stunTimer -= Time.deltaTime;
+        }
+
     }
 
     void Attack()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius);
 
-        if (isVisualAttackOn)
-            debugCircle.SetActive(true);
+        GameObject slamAttackVisaul = Instantiate(slamAttackVisualPrefab);
+        slamAttackVisaul.transform.position = transform.position;
+        slamAttackVisaul.transform.localScale = new Vector2(2 * attackRadius, 2 * attackRadius);
 
         foreach (var collider in colliders)
         {

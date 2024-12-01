@@ -104,7 +104,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -146,7 +146,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -166,8 +166,9 @@ MonoBehaviour:
   maxHealth: 1
   damage: 2
   attackCooldown: 0.1
-  attackWindup: 1
+  attackWindup: 0.7
   disFromPlayerToStartAttacking: 1.1
+  stunTime: 0
   amountOfParts: 100
   player: {fileID: 0}
   waveManager: {fileID: 0}

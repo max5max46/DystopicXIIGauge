@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float attackCooldown;
     [SerializeField] protected float attackWindup;
     [SerializeField] protected float disFromPlayerToStartAttacking;
+    [SerializeField] protected float stunTime;
     [SerializeField] protected int amountOfParts;
 
     [HideInInspector] public GameObject player;
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
     protected EnemyState state;
     protected float attackCooldownTimer;
     protected float attackWindupTimer;
+    protected float stunTimer;
 
     void Awake()
     {
@@ -45,6 +47,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Movement()
     {
+        agent.isStopped = false;
         agent.SetDestination(player.transform.position);
     }
 
@@ -54,6 +57,7 @@ public class Enemy : MonoBehaviour
             return;
 
         health -= damage;
+        stunTimer = stunTime;
 
         if (health < 1)
             Die();

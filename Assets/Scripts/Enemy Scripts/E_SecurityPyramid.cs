@@ -16,40 +16,48 @@ public class E_SecurityPyramid : Enemy
 
     void Update()
     {
-        attackCooldownTimer -= Time.deltaTime;
-
-        if (state == EnemyState.Moving)
+        if (stunTimer < 0)
         {
-            Movement();
+            if (attackCooldownTimer >= 0)
+                attackCooldownTimer -= Time.deltaTime;
 
-            // Condition to switch to Attacking
-            if (Vector2.Distance(player.transform.position, transform.position) < disFromPlayerToStartAttacking && 
-                Physics2D.Raycast(transform.position, player.transform.position - transform.position, 50, raycastLayerMask).transform.name == "Player")
+            if (state == EnemyState.Moving)
             {
-                agent.isStopped = true;
-                attackWindupTimer = attackWindup;
-                state = EnemyState.Attacking;
+                Movement();
+
+                // Condition to switch to Attacking
+                if (Vector2.Distance(player.transform.position, transform.position) < disFromPlayerToStartAttacking && 
+                    Physics2D.Raycast(transform.position, player.transform.position - transform.position, 50, raycastLayerMask).transform.name == "Player")
+                {
+                    agent.isStopped = true;
+                    attackWindupTimer = attackWindup;
+                    state = EnemyState.Attacking;
+                }
+            }
+            else if (state == EnemyState.Attacking)
+            {
+                attackWindupTimer -= Time.deltaTime;
+
+                if (attackWindupTimer < 0 && attackCooldownTimer < 0)
+                {
+                    Attack();
+
+                    attackCooldownTimer = attackCooldown;
+                    attackWindupTimer = attackWindup;
+                }
+
+                // Condition to switch to Moving
+                if (Vector2.Distance(player.transform.position, transform.position) > disFromPlayerToStartAttacking ||
+                    Physics2D.Raycast(transform.position, player.transform.position - transform.position, 50, raycastLayerMask).transform.name != "Player")
+                {
+                    state = EnemyState.Moving;
+                }
             }
         }
-        else if (state == EnemyState.Attacking)
+        else
         {
-            attackWindupTimer -= Time.deltaTime;
-
-            if (attackWindupTimer < 0 && attackCooldownTimer < 0)
-            {
-                Attack();
-
-                attackCooldownTimer = attackCooldown;
-                attackWindupTimer = attackWindup;
-            }
-
-            // Condition to switch to Moving
-            if (Vector2.Distance(player.transform.position, transform.position) > disFromPlayerToStartAttacking ||
-                Physics2D.Raycast(transform.position, player.transform.position - transform.position, 50, raycastLayerMask).transform.name != "Player")
-            {
-                agent.isStopped = false;
-                state = EnemyState.Moving;
-            }
+            agent.isStopped = true;
+            stunTimer -= Time.deltaTime;
         }
     }
 

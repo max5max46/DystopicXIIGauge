@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Shotgun shotgun;
+    [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private RoundManager roundManager;
     [SerializeField] private UIManager uiManager;
 
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     private Vector2 movementVector;
     private float currentReloadSpeedReduction;
     private float immunityTimer;
+    private float flickerTimer;
 
     [HideInInspector] public int geometricScrapInRun;
     [HideInInspector] public int geometricScrap;
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour
         health = maxHealth;
         currentReloadSpeedReduction = 1;
         immunityTimer = 0;
+        flickerTimer = 0;
         rb = GetComponent<Rigidbody2D>();
 
         ManageInputs(true);
@@ -65,6 +68,8 @@ public class Player : MonoBehaviour
         ManageInputs();
 
         SetMovementVector();
+
+        SpriteHandler();
 
         if (shotgun.reloading)
             currentReloadSpeedReduction = reloadSpeedReduction;
@@ -174,6 +179,31 @@ public class Player : MonoBehaviour
 
         if (health < 1)
             roundManager.RoundEnd(false);
+    }
+
+    private void SpriteHandler()
+    {
+        if (immunityTimer > 0)
+        {
+            if (flickerTimer > 0)
+            {
+                flickerTimer -= Time.deltaTime;
+            }
+            else
+            {
+                if (sprite.enabled == true)
+                    sprite.enabled = false;
+                else
+                    sprite.enabled = true;
+
+                flickerTimer = immunityTime / 5f;
+            }
+        }
+        else
+        {
+            sprite.enabled = true;
+            flickerTimer = 0;
+        }
     }
 
     public void ReceivePartsInRun(int partsToReceive)

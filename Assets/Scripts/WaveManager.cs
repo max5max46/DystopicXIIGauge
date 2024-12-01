@@ -164,9 +164,12 @@ public class WaveManager : MonoBehaviour
                 case 4:
                     if (points >= securityCylinderPointVal)
                     {
-                        points -= securityCylinderPointVal;
-                        totalEnemiesInCurrentWave++;
-                        enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(securityCylinderPrefab));
+                        if (Random.Range(0, 2) == 1)
+                        {
+                            points -= securityCylinderPointVal;
+                            totalEnemiesInCurrentWave++;
+                            enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(securityCylinderPrefab));
+                        }
                     }
                     break;
 

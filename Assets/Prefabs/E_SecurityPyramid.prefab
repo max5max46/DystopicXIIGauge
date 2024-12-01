@@ -103,7 +103,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -145,7 +145,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -166,7 +166,8 @@ MonoBehaviour:
   damage: 1
   attackCooldown: 1.5
   attackWindup: 0.1
-  disFromPlayerToStartAttacking: 7
+  disFromPlayerToStartAttacking: 5
+  stunTime: 0.4
   amountOfParts: 200
   player: {fileID: 0}
   waveManager: {fileID: 0}
@@ -174,8 +175,8 @@ MonoBehaviour:
   isDead: 0
   raycastLayerMask:
     serializedVersion: 2
-    m_Bits: 1
-  projectileSpeed: 0.13
+    m_Bits: 129
+  projectileSpeed: 0.1
   projectileColor: {r: 0.07705579, g: 0, b: 0.41960785, a: 1}
   projectilePrefab: {fileID: 2903972510487743284, guid: 38b95597f30cfe7478934d6cb722fb91, type: 3}
 --- !u!195 &8569199403076930647
