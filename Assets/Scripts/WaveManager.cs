@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -40,6 +41,7 @@ public class WaveManager : MonoBehaviour
     [HideInInspector] public int totalEnemiesInCurrentWave;
     [HideInInspector] public bool hasWon;
     [HideInInspector] public int currentWave;
+    [HideInInspector] public int totalWaveGS;
 
     [Header("Debug")]
     [SerializeField] private bool disableWaves = false;
@@ -51,6 +53,7 @@ public class WaveManager : MonoBehaviour
         player = FindFirstObjectByType<Player>().gameObject;
         enemies = new List<GameObject>();
         currentWave = 0;
+        totalWaveGS = -roundManager.gsReceivedPerHealthPoint * player.GetComponent<Player>().health;
         hasWon = false;
 
         foreach(Spawner spawner in spawners)
@@ -63,8 +66,6 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Current Enemies Alive: " + enemies.Count + "   Total Enemies: " + totalEnemiesInCurrentWave);
-        
         if (enemies.Count == 0 && !hasWon && !disableWaves)
         {
 
@@ -78,6 +79,7 @@ public class WaveManager : MonoBehaviour
                 StartWave();
             }
 
+            totalWaveGS += roundManager.gsReceivedPerHealthPoint * player.GetComponent<Player>().health;
             currentWave++;
         }
     }

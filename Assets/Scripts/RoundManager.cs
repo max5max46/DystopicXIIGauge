@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class RoundManager : MonoBehaviour
 {
     [Header("Properties")]
-    public int gsReceivedPerWave = 500;
+    public int gsReceivedPerHealthPoint = 500;
 
     [Header("References")]
     [SerializeField] private Player player;
@@ -55,8 +55,8 @@ public class RoundManager : MonoBehaviour
     public void RoundEnd(bool hasWon)
     {
         player.canControl = false;
-        resultsUI.CalculateResults(waveManager.currentWave - 1, gsReceivedPerWave);
-        player.geometricScrap += player.geometricScrapInRun + ((waveManager.currentWave - 1) * gsReceivedPerWave);
+        resultsUI.CalculateResults(waveManager.totalWaveGS);
+        player.geometricScrap += player.geometricScrapInRun + waveManager.totalWaveGS;
         programManager.Save();
 
         if (hasWon)

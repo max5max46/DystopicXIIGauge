@@ -166,7 +166,7 @@ MonoBehaviour:
   damage: 1
   attackCooldown: 1.5
   attackWindup: 0.1
-  disFromPlayerToStartAttacking: 5
+  disFromPlayerToStartAttacking: 7
   stunTime: 0.4
   amountOfParts: 200
   player: {fileID: 0}

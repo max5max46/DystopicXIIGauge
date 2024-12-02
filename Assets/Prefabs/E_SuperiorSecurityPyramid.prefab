@@ -162,11 +162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa893add996b794ab4cacec52a63d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 12
+  maxHealth: 10
   damage: 2
   attackCooldown: 1
   attackWindup: 0.1
-  disFromPlayerToStartAttacking: 6
+  disFromPlayerToStartAttacking: 8
   stunTime: 0.4
   amountOfParts: 1000
   player: {fileID: 0}
@@ -176,7 +176,7 @@ MonoBehaviour:
   raycastLayerMask:
     serializedVersion: 2
     m_Bits: 129
-  projectileSpeed: 0.15
+  projectileSpeed: 0.12
   projectileColor: {r: 0.41960785, g: 0, b: 0.23561023, a: 1}
   projectilePrefab: {fileID: 2903972510487743284, guid: 38b95597f30cfe7478934d6cb722fb91, type: 3}
 --- !u!195 &142781333362872613

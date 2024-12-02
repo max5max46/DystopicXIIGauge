@@ -10,7 +10,7 @@ public class UpgradeObject : MonoBehaviour
     enum NumberFormat
     {
         Normal,
-        Percentage,
+        MinusPercentage,
         PlusPercentage,
         Time,
         Single
@@ -131,11 +131,11 @@ public class UpgradeObject : MonoBehaviour
                     statText.text = upgrade.currentStat.ToString();
                 break;
 
-            case NumberFormat.Percentage:
+            case NumberFormat.MinusPercentage:
                 if (upgrade.endingUpgradeLevel != upgrade.currentUpgradeLevel)
-                    statText.text = (upgrade.currentStat * 100) + "%" + "  >  " + ((upgrade.currentStat + upgrade.goesUpBy) * 100) + "%";
+                    statText.text = "-" + ((1 - upgrade.currentStat) * 100) + "%" + "  >  " + "-" + ((1 - upgrade.goesUpBy - upgrade.currentStat) * 100) + "%";
                 else
-                    statText.text = (upgrade.currentStat * 100) + "%";
+                    statText.text = "-" + ((1 - upgrade.currentStat) * 100) + "%";
                 break;
 
             case NumberFormat.PlusPercentage:

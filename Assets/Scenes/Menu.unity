@@ -2849,8 +2849,10 @@ MonoBehaviour:
   upgradeStartingStat: 3
   upgradeGoesUpBy: 1
   upgradeEndingLevel: 3
-  upgradeDescription: Health Description
-  upgradeCosts: d007000010270000204e0000
+  upgradeDescription: 'How many hits you can take before you Game over.
+
+'
+  upgradeCosts: d007000088130000e02e0000
   numberFormat: 0
   costText: {fileID: 1135664076}
   statText: {fileID: 801105029}
@@ -3238,7 +3240,7 @@ MonoBehaviour:
   upgradeStartingStat: 0.5
   upgradeGoesUpBy: -0.07
   upgradeEndingLevel: 3
-  upgradeDescription: Reload Time Description
+  upgradeDescription: The time it takes to load a shell into the clip.
   upgradeCosts: a00f000010270000204e0000
   numberFormat: 3
   costText: {fileID: 984105008}
@@ -3264,7 +3266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &274541134
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4504,7 +4506,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -7431,7 +7433,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &760002452
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10547,7 +10549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Made By: Dylan Adams | v0.1.2'
+  m_text: 'Made By: Dylan Adams | v0.1.3'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10682,8 +10684,10 @@ MonoBehaviour:
   upgradeStartingStat: 0
   upgradeGoesUpBy: 1
   upgradeEndingLevel: 1
-  upgradeDescription: Defensive Reload System Description
-  upgradeCosts: 983a0000
+  upgradeDescription: 'Reloads your entire shotgun clip every time you get hit.
+
+'
+  upgradeCosts: e02e0000
   numberFormat: 4
   costText: {fileID: 510114642}
   statText: {fileID: 461574796}
@@ -11015,7 +11019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e493c7a32a07ba944b3610f0ab7309f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gsReceivedPerWave: 500
+  gsReceivedPerHealthPoint: 150
   player: {fileID: 1319353600}
   shotgun: {fileID: 1853687202}
   uiManager: {fileID: 56398530}
@@ -11082,8 +11086,10 @@ MonoBehaviour:
   upgradeStartingStat: 1
   upgradeGoesUpBy: 1
   upgradeEndingLevel: 2
-  upgradeDescription: Damage Description
-  upgradeCosts: 204e000050c30000
+  upgradeDescription: 'How much damage each pellet does to an enemy.
+
+'
+  upgradeCosts: 204e000060ea0000
   numberFormat: 0
   costText: {fileID: 74934277}
   statText: {fileID: 750842970}
@@ -13230,8 +13236,10 @@ MonoBehaviour:
   upgradeStartingStat: 3
   upgradeGoesUpBy: 1
   upgradeEndingLevel: 3
-  upgradeDescription: Clip Size Description
-  upgradeCosts: c409000028230000204e0000
+  upgradeDescription: 'How many shells your gun can hold before reloading.
+
+'
+  upgradeCosts: c4090000282300005c440000
   numberFormat: 0
   costText: {fileID: 2057917586}
   statText: {fileID: 1555467320}
@@ -14072,7 +14080,7 @@ MonoBehaviour:
   upgradeStartingStat: 1
   upgradeGoesUpBy: 0.2
   upgradeEndingLevel: 3
-  upgradeDescription: Speed Description
+  upgradeDescription: "Your movement speed. \n"
   upgradeCosts: 881300001027000030750000
   numberFormat: 2
   costText: {fileID: 528548917}
@@ -15307,7 +15315,10 @@ MonoBehaviour:
   upgradeStartingStat: 1
   upgradeGoesUpBy: 1
   upgradeEndingLevel: 2
-  upgradeDescription: Multi-Shell Reload Description
+  upgradeDescription: 'How many shells you reload per interval of reload time well
+    reloading.
+
+'
   upgradeCosts: 3075000050c30000
   numberFormat: 0
   costText: {fileID: 1534454510}
@@ -16693,10 +16704,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: reloadMovementReduction
   upgradeStartingStat: 0.5
-  upgradeGoesUpBy: 0.1
+  upgradeGoesUpBy: 0.15
   upgradeEndingLevel: 2
-  upgradeDescription: Reload Movement Reduction Description
-  upgradeCosts: 1027000030750000
+  upgradeDescription: 'The % amount of speed reduction while reloading.
+
+'
+  upgradeCosts: c832000030750000
   numberFormat: 1
   costText: {fileID: 1045935526}
   statText: {fileID: 591966738}
@@ -16838,7 +16851,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reload Movement Reduction
+  m_text: Reload Movement Speed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17228,8 +17241,11 @@ MonoBehaviour:
   upgradeStartingStat: 5
   upgradeGoesUpBy: 2
   upgradeEndingLevel: 3
-  upgradeDescription: Pellet Amount Description
-  upgradeCosts: b80b0000e02e0000409c0000
+  upgradeDescription: 'The number of projectiles that shoot out each time the gun
+    is fired.
+
+'
+  upgradeCosts: b80b0000e02e0000a8610000
   numberFormat: 0
   costText: {fileID: 530764294}
   statText: {fileID: 152422621}
@@ -17599,8 +17615,11 @@ MonoBehaviour:
   upgradeStartingStat: 0
   upgradeGoesUpBy: 1
   upgradeEndingLevel: 1
-  upgradeDescription: Explosive Defense System Description
-  upgradeCosts: 70110100
+  upgradeDescription: 'An explosion that activates every time you get hit, killing
+    every enemy in an area around you.
+
+'
+  upgradeCosts: f8240100
   numberFormat: 4
   costText: {fileID: 219326443}
   statText: {fileID: 1649053934}

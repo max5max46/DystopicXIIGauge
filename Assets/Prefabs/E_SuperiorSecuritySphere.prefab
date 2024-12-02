@@ -168,7 +168,7 @@ MonoBehaviour:
   attackWindup: 0.1
   disFromPlayerToStartAttacking: 1.3
   stunTime: 0.3
-  amountOfParts: 800
+  amountOfParts: 1500
   player: {fileID: 0}
   waveManager: {fileID: 0}
   health: 0

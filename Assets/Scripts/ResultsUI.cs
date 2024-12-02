@@ -16,12 +16,12 @@ public class ResultsUI : MonoBehaviour
     private int totalGS;
 
     // Update is called once per frame
-    public void CalculateResults(int wavesComplete, int gsPerWave)
+    public void CalculateResults(int waveGS)
     {
-        totalGS = player.geometricScrapInRun + player.geometricScrap + (wavesComplete * gsPerWave);
+        totalGS = player.geometricScrapInRun + player.geometricScrap + waveGS;
 
         enemyGSText.text = "+" + string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrapInRun);
-        waveGSText.text = "+" + string.Format(CultureInfo.InvariantCulture, "{0:N0}", (wavesComplete * gsPerWave));
+        waveGSText.text = "+" + string.Format(CultureInfo.InvariantCulture, "{0:N0}", waveGS);
         walletGSText.text = string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrap);
         totalGSText.text = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalGS);
     }
