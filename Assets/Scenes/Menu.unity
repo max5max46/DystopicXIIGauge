@@ -2852,7 +2852,7 @@ MonoBehaviour:
   upgradeDescription: 'How many hits you can take before you Game over.
 
 '
-  upgradeCosts: d007000088130000e02e0000
+  upgradeCosts: e8030000a00f0000401f0000
   numberFormat: 0
   costText: {fileID: 1135664076}
   statText: {fileID: 801105029}
@@ -3241,7 +3241,7 @@ MonoBehaviour:
   upgradeGoesUpBy: -0.07
   upgradeEndingLevel: 3
   upgradeDescription: The time it takes to load a shell into the clip.
-  upgradeCosts: a00f000010270000204e0000
+  upgradeCosts: a00f0000581b0000803e0000
   numberFormat: 3
   costText: {fileID: 984105008}
   statText: {fileID: 808944176}
@@ -10549,7 +10549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Made By: Dylan Adams | v0.1.3'
+  m_text: 'Made By: Dylan Adams | v0.1.3.1'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11089,7 +11089,7 @@ MonoBehaviour:
   upgradeDescription: 'How much damage each pellet does to an enemy.
 
 '
-  upgradeCosts: 204e000060ea0000
+  upgradeCosts: 204e0000c8af0000
   numberFormat: 0
   costText: {fileID: 74934277}
   statText: {fileID: 750842970}
@@ -13239,7 +13239,7 @@ MonoBehaviour:
   upgradeDescription: 'How many shells your gun can hold before reloading.
 
 '
-  upgradeCosts: c4090000282300005c440000
+  upgradeCosts: c40900004c1d0000983a0000
   numberFormat: 0
   costText: {fileID: 2057917586}
   statText: {fileID: 1555467320}
@@ -15319,7 +15319,7 @@ MonoBehaviour:
     reloading.
 
 '
-  upgradeCosts: 3075000050c30000
+  upgradeCosts: 606d0000409c0000
   numberFormat: 0
   costText: {fileID: 1534454510}
   statText: {fileID: 1888930920}
@@ -16709,7 +16709,7 @@ MonoBehaviour:
   upgradeDescription: 'The % amount of speed reduction while reloading.
 
 '
-  upgradeCosts: c832000030750000
+  upgradeCosts: a00f0000204e0000
   numberFormat: 1
   costText: {fileID: 1045935526}
   statText: {fileID: 591966738}
