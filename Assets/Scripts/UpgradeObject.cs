@@ -26,13 +26,18 @@ public class UpgradeObject : MonoBehaviour
     [SerializeField] private NumberFormat numberFormat;
 
     [Header("References")]
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private Sprite upgradeImage;
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private TextMeshProUGUI statText;
     [SerializeField] private Button buyButton;
     [SerializeField] private MouseDetect mouseDetect;
     [SerializeField] private GameObject upgradePipsParent;
-    [SerializeField] private Player player;
+    [SerializeField] private Image descriptionImage;
+    [SerializeField] private TextMeshProUGUI descriptionTitleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private TextMeshProUGUI descriptionStatText;
+    [SerializeField] private Player player;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject upgradePipPrefab;
@@ -51,7 +56,12 @@ public class UpgradeObject : MonoBehaviour
         UpdatePips();
 
         if (mouseDetect.isMouseOver)
+        {
+            descriptionTitleText.text = nameText.text;
+            descriptionImage.sprite = upgradeImage;
             descriptionText.text = upgradeDescription;
+            descriptionStatText.text = statText.text;
+        }
 
         if (upgrade.endingUpgradeLevel == upgrade.currentUpgradeLevel)
             buyButton.enabled = false;

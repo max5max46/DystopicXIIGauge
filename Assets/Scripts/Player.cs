@@ -82,6 +82,9 @@ public class Player : MonoBehaviour
         if (reloadPressed)
             shotgun.Reload();
 
+        if (geometricScrap > 999999)
+            geometricScrap = 999999;
+
         if (immunityTimer > 0)
             immunityTimer -= Time.deltaTime;
 

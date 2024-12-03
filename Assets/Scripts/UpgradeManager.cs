@@ -38,7 +38,7 @@ public class UpgradeManager : MonoBehaviour
         if (moneyCheat && Input.GetKeyDown(KeyCode.M))
             player.geometricScrap += 100000;
 
-        walletGSText.text = "GS Wallet: " + string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrap);
+        walletGSText.text = string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrap);
     }
 
     public void UpdatePlayerAndShotgunStats()

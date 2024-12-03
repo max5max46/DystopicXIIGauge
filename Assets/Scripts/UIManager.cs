@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject uiMain;
+    [SerializeField] private GameObject uiWarning;
     [SerializeField] private GameObject uiOptions;
     [SerializeField] private GameObject uiStory;
     [SerializeField] private GameObject uiTutorial;
@@ -27,12 +28,6 @@ public class UIManager : MonoBehaviour
         SwitchUIScreen("main");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SwitchUIScreen(string name = "none")
     {
         bool resetUIScreens = true;
@@ -49,7 +44,7 @@ public class UIManager : MonoBehaviour
         if (name == "upgrades" || name == "gameplay")
             programManager.ResumeGame();
 
-        if (name == "options")
+        if (name == "options" || name == "warning")
             resetUIScreens = false;
 
         if (currentUIScreenName == "options")
@@ -63,6 +58,10 @@ public class UIManager : MonoBehaviour
             case "main":
                 uiMain.SetActive(true);
                 uiUpgrades.SetActive(true);
+                break;
+
+            case "warning":
+                uiWarning.SetActive(true);
                 break;
 
             case "options":
@@ -114,6 +113,7 @@ public class UIManager : MonoBehaviour
     private void DeactivateUIScreens()
     {
         uiMain.SetActive(false);
+        uiWarning.SetActive(false);
         uiOptions.SetActive(false);
         uiStory.SetActive(false);
         uiTutorial.SetActive(false);

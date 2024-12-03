@@ -18,7 +18,7 @@ public class ResultsUI : MonoBehaviour
     // Update is called once per frame
     public void CalculateResults(int waveGS)
     {
-        totalGS = player.geometricScrapInRun + player.geometricScrap + waveGS;
+        totalGS = Mathf.Clamp(player.geometricScrapInRun + player.geometricScrap + waveGS, 0, 999999);
 
         enemyGSText.text = "+" + string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrapInRun);
         waveGSText.text = "+" + string.Format(CultureInfo.InvariantCulture, "{0:N0}", waveGS);

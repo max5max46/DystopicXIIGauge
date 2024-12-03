@@ -18,10 +18,16 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private GameObject heart4;
     [SerializeField] private GameObject heart5;
     [SerializeField] private GameObject heart6;
-    //[SerializeField] private WaveManager waveManager;
+    [SerializeField] private UpgradeManager upgradeManager;
     [SerializeField] private Shotgun shotgun;
     [SerializeField] private Player player;
     [SerializeField] private RoundManager roundManager;
+
+    [Header("Sprite References")]
+    [SerializeField] private Sprite reloadWheel1;
+    [SerializeField] private Sprite reloadWheel2;
+    [SerializeField] private Sprite reloadWheel3;
+    [SerializeField] private Sprite reloadWheel4;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject shellPrefab;
@@ -48,7 +54,7 @@ public class GameplayUI : MonoBehaviour
                 waveProgressBar.GetComponent<Image>().fillAmount = 0;
         }
 
-        gsText.text = "GS: " + string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrapInRun);
+        gsText.text = string.Format(CultureInfo.InvariantCulture, "{0:N0}", player.geometricScrapInRun);
 
         for (int i = 0; i < player.maxHealth; i++)
             hearts[i].GetComponent<Pip>().TurnPipOn();
@@ -117,6 +123,25 @@ public class GameplayUI : MonoBehaviour
             shell.GetComponent<Pip>().TurnPipOn();
             shells.Add(shell);
             disBetweenShells -= 22;
+        }
+
+        switch (upgradeManager.sReloadTime.upgrade.currentUpgradeLevel)
+        {
+            case 0:
+                reloadTimeIndicator.GetComponent<Image>().sprite = reloadWheel1;
+                break;
+
+            case 1:
+                reloadTimeIndicator.GetComponent<Image>().sprite = reloadWheel2;
+                break;
+
+            case 2:
+                reloadTimeIndicator.GetComponent<Image>().sprite = reloadWheel3;
+                break;
+
+            case 3:
+                reloadTimeIndicator.GetComponent<Image>().sprite = reloadWheel4;
+                break;
         }
     }
 }
