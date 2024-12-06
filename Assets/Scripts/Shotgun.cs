@@ -17,7 +17,19 @@ public class Shotgun : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject pelletPrefab;
+    [SerializeField] private SpriteRenderer sprite;
+    public GameObject pelletPrefab;
+
+    [Header("Sprite References")]
+    [SerializeField] private Sprite shotgunRight;
+    [SerializeField] private Sprite shotgunLeft;
+
+    [Header("Sound References")]
+    [SerializeField] private SoundHandler soundHandler;
+    [SerializeField] private AudioClip shotgunShot;
+    [SerializeField] private AudioClip shotgunReload;
+    [SerializeField] private AudioClip shotgunPump;
+
 
     [HideInInspector] public int shellsInClip;
 
@@ -44,6 +56,8 @@ public class Shotgun : MonoBehaviour
 
         float angle = Mathf.Atan2(cursorDirection.y, cursorDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        SpriteHandler();
 
         if (shotCooldownTimer > 0)
             shotCooldownTimer -= Time.deltaTime;
@@ -73,6 +87,8 @@ public class Shotgun : MonoBehaviour
         if (reloading == true && shellsInClip > 0)
             reloading = false;
 
+
+
         bool isFirstPellet = true;
 
         for (int i = 0; i < pelletAmount; i++)
@@ -88,6 +104,8 @@ public class Shotgun : MonoBehaviour
             else
                 pellet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, pelletSpread) + (transform.rotation.eulerAngles.z - (pelletSpread / 2)));
         }
+
+        soundHandler.PlaySound(shotgunShot, 0.3f, transform.position);
 
         shotCooldownTimer = shotCooldown;
         shellsInClip--;
@@ -113,11 +131,26 @@ public class Shotgun : MonoBehaviour
         }
 
         shellsInClip += amountOfShellsToReload;
+        soundHandler.PlaySound(shotgunReload, 0.5f, transform.position);
 
         if (shellsInClip > clipSize)
             shellsInClip = clipSize;
 
         reloadTimer = reloadTime;
+    }
+
+    private void SpriteHandler()
+    {
+        bool isFacingRight = true;
+
+        if (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 270)
+            isFacingRight = false;
+
+        if (isFacingRight)
+            sprite.sprite = shotgunRight;
+        else
+            sprite.sprite = shotgunLeft;
+
     }
 
     public void DRSReload()

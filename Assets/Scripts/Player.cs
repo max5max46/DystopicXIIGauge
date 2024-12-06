@@ -18,9 +18,23 @@ public class Player : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Shotgun shotgun;
-    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private GameObject explosionParticlePrefab;
+    [SerializeField] private SpriteRenderer bodySprite;
+    [SerializeField] private SpriteRenderer faceSprite;
     [SerializeField] private RoundManager roundManager;
     [SerializeField] private UIManager uiManager;
+
+    [Header("Sprite References")]
+    [SerializeField] private Sprite bodyRight;
+    [SerializeField] private Sprite bodyLeft;
+    [SerializeField] private Sprite faceRight;
+    [SerializeField] private Sprite faceLeft;
+    [SerializeField] private Sprite faceHurtRight;
+    [SerializeField] private Sprite faceHurtLeft;
+
+    [Header("Sound References")]
+    [SerializeField] private SoundHandler soundHandler;
+    [SerializeField] private AudioClip playerHit;
 
     [Header("Debug")]
     [SerializeField] private bool godMode = false;
@@ -173,6 +187,7 @@ public class Player : MonoBehaviour
 
         health -= damage;
         immunityTimer = immunityTime;
+        soundHandler.PlaySound(playerHit, 0.4f, transform.position);
 
         if (isDRSActive)
             shotgun.DRSReload();
@@ -186,25 +201,52 @@ public class Player : MonoBehaviour
 
     private void SpriteHandler()
     {
+        bool isFacingRight = true;
+
+        if (shotgun.transform.rotation.eulerAngles.z > 90 && shotgun.transform.rotation.eulerAngles.z < 270)
+            isFacingRight = false;
+
+        if (isFacingRight)
+            bodySprite.sprite = bodyRight;
+        else
+            bodySprite.sprite = bodyLeft;
+
         if (immunityTimer > 0)
         {
+            if (isFacingRight)
+                faceSprite.sprite = faceHurtRight;
+            else
+                faceSprite.sprite = faceHurtLeft;
+
             if (flickerTimer > 0)
             {
                 flickerTimer -= Time.deltaTime;
             }
             else
             {
-                if (sprite.enabled == true)
-                    sprite.enabled = false;
+                if (faceSprite.enabled == true)
+                {
+                    bodySprite.enabled = false;
+                    faceSprite.enabled = false;
+                }
                 else
-                    sprite.enabled = true;
+                {
+                    bodySprite.enabled = true;
+                    faceSprite.enabled = true;
+                }
 
                 flickerTimer = immunityTime / 5f;
             }
         }
         else
         {
-            sprite.enabled = true;
+            if (isFacingRight)
+                faceSprite.sprite = faceRight;
+            else
+                faceSprite.sprite = faceLeft;
+
+            bodySprite.enabled = true;
+            faceSprite.enabled = true;
             flickerTimer = 0;
         }
     }
@@ -217,6 +259,9 @@ public class Player : MonoBehaviour
     private void ExplosiveDefenseSystem()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, edsRadious);
+
+        GameObject explosionParticle = Instantiate(explosionParticlePrefab, transform.position, transform.rotation);
+        explosionParticle.GetComponent<ExplosionParticles>().StartParticles(edsRadious);
 
         foreach (var collider in colliders)
         {

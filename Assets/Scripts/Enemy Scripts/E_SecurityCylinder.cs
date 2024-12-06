@@ -9,6 +9,7 @@ public class E_SecurityCylinder : Enemy
     [SerializeField] private int damageDealtToEnemies;
 
     [Header("Additional References")]
+    [SerializeField] private GameObject explosionParticlePrefab;
     [SerializeField] private GameObject debugCircle;
 
     [Header("DEBUG")]
@@ -18,6 +19,9 @@ public class E_SecurityCylinder : Enemy
 
     private void Start()
     {
+        waveManager = FindFirstObjectByType<WaveManager>();
+        player = FindFirstObjectByType<Player>().gameObject;
+
         isExploding = false;
 
         if (isVisualAttackOn)
@@ -95,6 +99,8 @@ public class E_SecurityCylinder : Enemy
 
         player.GetComponent<Player>().ReceivePartsInRun(amountOfParts);
         waveManager.EnemyDied(gameObject);
+        GameObject explosionParticle = Instantiate(explosionParticlePrefab, transform.position, transform.rotation);
+        explosionParticle.GetComponent<ExplosionParticles>().StartParticles(attackRadius);
         Destroy(gameObject);
     }
 

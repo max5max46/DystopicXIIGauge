@@ -22,7 +22,16 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI walletGSText;
     [SerializeField] private Player player;
     [SerializeField] private Shotgun shotgun;
+    [SerializeField] private GameplayUI gameplayUI;
     [SerializeField] private ProgramManager programManager;
+
+    [Header("Prefab Reference")]
+    [SerializeField] private GameObject shellRedPrefab;
+    [SerializeField] private GameObject shellBluePrefab;
+    [SerializeField] private GameObject shellPurplePrefab;
+    [SerializeField] private GameObject pelletRedPrefab;
+    [SerializeField] private GameObject pelletBluePrefab;
+    [SerializeField] private GameObject pelletPurplePrefab;
 
     [Header("DEBUG")]
     [SerializeField] private bool moneyCheat = false;
@@ -46,11 +55,36 @@ public class UpgradeManager : MonoBehaviour
         player.maxHealth = (int)pHealth.upgrade.currentStat;
         player.speedMultiplier = pSpeed.upgrade.currentStat;
         player.reloadSpeedReduction = pReloadMovementReduction.upgrade.currentStat;
+
         if (pExplosiveDefenseSystem.upgrade.currentStat > 0)
             player.isEDSActive = true;
+        else
+            player.isEDSActive = false;
+
         if (pDefensiveReloadSystem.upgrade.currentStat > 0)
             player.isDRSActive = true;
+        else
+            player.isDRSActive = false;
+
         shotgun.gunDamage = (int)sDamage.upgrade.currentStat;
+        switch (sDamage.upgrade.currentUpgradeLevel)
+        {
+            case 0:
+                gameplayUI.shellPrefab = shellRedPrefab;
+                shotgun.pelletPrefab = pelletRedPrefab;
+                break;
+
+            case 1:
+                gameplayUI.shellPrefab = shellBluePrefab;
+                shotgun.pelletPrefab = pelletBluePrefab;
+                break;
+
+            case 2:
+                gameplayUI.shellPrefab = shellPurplePrefab;
+                shotgun.pelletPrefab = pelletPurplePrefab;
+                break;
+        }
+
         shotgun.pelletAmount = (int)sPelletAmount.upgrade.currentStat;
         shotgun.clipSize = (int)sClipSize.upgrade.currentStat;
         shotgun.reloadTime = sReloadTime.upgrade.currentStat;

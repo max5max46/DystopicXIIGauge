@@ -20,6 +20,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float disFromPlayerToStartAttacking;
     [SerializeField] protected float stunTime;
     [SerializeField] protected int amountOfParts;
+    [SerializeField] protected Color deathParticleColor;
+
+    [Header("References")]
+    [SerializeField] private GameObject dealthParticlePrefab;
 
     [HideInInspector] public GameObject player;
     [HideInInspector] public  WaveManager waveManager;
@@ -67,6 +71,9 @@ public class Enemy : MonoBehaviour
     {
         player.GetComponent<Player>().ReceivePartsInRun(amountOfParts);
         waveManager.EnemyDied(gameObject);
+        GameObject deathParticle = Instantiate(dealthParticlePrefab, transform.position, transform.rotation);
+        deathParticle.GetComponent<DeathParticles>().StartParticles(deathParticleColor);
         Destroy(gameObject);
+
     }
 }

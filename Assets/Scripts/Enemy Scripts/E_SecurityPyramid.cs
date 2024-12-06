@@ -8,10 +8,15 @@ public class E_SecurityPyramid : Enemy
     [Header("Additional Properties")]
     [SerializeField] private LayerMask raycastLayerMask;
     [SerializeField] private float projectileSpeed;
-    [SerializeField] private Color projectileColor;
 
     [Header("Additional References")]
     [SerializeField] private GameObject projectilePrefab;
+
+    private void Start()
+    {
+        waveManager = FindFirstObjectByType<WaveManager>();
+        player = FindFirstObjectByType<Player>().gameObject;
+    }
 
 
     void Update()
@@ -67,7 +72,6 @@ public class E_SecurityPyramid : Enemy
 
         projectile.GetComponent<EnemyProjectile>().damage = damage;
         projectile.GetComponent<EnemyProjectile>().projectileSpeed = projectileSpeed;
-        projectile.GetComponent<SpriteRenderer>().color = projectileColor;
         
         projectile.transform.position = new Vector3 (transform.position.x , transform.position.y, 0);
 

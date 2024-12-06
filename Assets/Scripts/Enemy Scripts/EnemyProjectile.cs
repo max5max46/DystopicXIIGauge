@@ -8,13 +8,17 @@ public class EnemyProjectile : MonoBehaviour
     [Header("Properties")]
     [SerializeField] private float projectileLifeSpan = 2;
 
+
     private float lifeSpanTimer;
+    private bool isDead;
+
     [HideInInspector] public float projectileSpeed = 0;
     [HideInInspector] public int damage;
 
     // Start is called before the first frame update
     void Start()
     {
+        isDead = false;
         lifeSpanTimer = 0;
     }
 
@@ -29,7 +33,8 @@ public class EnemyProjectile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += transform.right * projectileSpeed;
+        if (!isDead)
+            transform.position += transform.right * projectileSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,18 +42,18 @@ public class EnemyProjectile : MonoBehaviour
         if (collision.GetComponent<EnemyProjectile>() || collision.GetComponent<Enemy>())
             return;
 
-
         if (collision.GetComponent<Player>())
             collision.GetComponent<Player>().TakeDamage(damage);
 
-
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        isDead = true;
+        gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
     }
 
     public void Kill()
     {
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        isDead = true;
+        gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
     }
 }

@@ -63,9 +63,6 @@ public class UpgradeObject : MonoBehaviour
             descriptionStatText.text = statText.text;
         }
 
-        if (upgrade.endingUpgradeLevel == upgrade.currentUpgradeLevel)
-            buyButton.enabled = false;
-
         if (upgradeCosts.Count > upgrade.currentUpgradeLevel)
             if (player.geometricScrap < upgradeCosts[upgrade.currentUpgradeLevel])
                 buyButton.interactable = false;
@@ -117,7 +114,7 @@ public class UpgradeObject : MonoBehaviour
 
         player.geometricScrap -= upgradeCosts[upgrade.currentUpgradeLevel];
         upgrade.LevelUp();
-        
+
         UpdateCost();
         UpdateStat();
     }
@@ -128,6 +125,11 @@ public class UpgradeObject : MonoBehaviour
             costText.text = "Cost: " + string.Format(CultureInfo.InvariantCulture, "{0:N0}", upgradeCosts[upgrade.currentUpgradeLevel]);
         else
             costText.text = "Max";
+
+        if (upgrade.endingUpgradeLevel == upgrade.currentUpgradeLevel)
+            buyButton.enabled = false;
+        else
+            buyButton.enabled = true;
     }
 
     private void UpdateStat()

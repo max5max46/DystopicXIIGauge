@@ -30,7 +30,7 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private Sprite reloadWheel4;
 
     [Header("Prefabs")]
-    [SerializeField] private GameObject shellPrefab;
+    public GameObject shellPrefab;
 
     private List<GameObject> hearts;
     private List<GameObject> shells;

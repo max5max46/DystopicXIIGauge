@@ -16,7 +16,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject uiPause;
     [SerializeField] private GameObject uiResults;
     [SerializeField] private GameObject uiWin;
+    [SerializeField] private Player player;
     [SerializeField] private ProgramManager programManager;
+    [SerializeField] private MusicHandler musicHandler;
 
     private string previousUIScreenName;
     [HideInInspector] public string currentUIScreenName;
@@ -36,13 +38,21 @@ public class UIManager : MonoBehaviour
             name = "upgrades";
 
         if (name == "pause" || name == "results")
+        {
+            player.canControl = false;
             programManager.PauseGame();
+        }
 
         if (currentUIScreenName == "pause" && name == "pause")
             name = "gameplay";
 
         if (name == "upgrades" || name == "gameplay")
+        {
+            if (name == "gameplay")
+                player.canControl = true;
+
             programManager.ResumeGame();
+        }
 
         if (name == "options" || name == "warning")
             resetUIScreens = false;
@@ -58,10 +68,14 @@ public class UIManager : MonoBehaviour
             case "main":
                 uiMain.SetActive(true);
                 uiUpgrades.SetActive(true);
+                musicHandler.SwitchAudioTrack("title");
+                musicHandler.RestoreVolume();
                 break;
 
             case "warning":
                 uiWarning.SetActive(true);
+                musicHandler.SwitchAudioTrack("title");
+                musicHandler.RestoreVolume();
                 break;
 
             case "options":
@@ -70,30 +84,44 @@ public class UIManager : MonoBehaviour
 
             case "story":
                 uiStory.SetActive(true);
+                musicHandler.SwitchAudioTrack("title");
+                musicHandler.RestoreVolume();
                 break;
 
             case "tutorial":
                 uiTutorial.SetActive(true);
+                musicHandler.SwitchAudioTrack("title");
+                musicHandler.RestoreVolume();
                 break;
 
             case "upgrades":
                 uiUpgrades.SetActive(true);
+                musicHandler.SwitchAudioTrack("shop");
+                musicHandler.RestoreVolume();
                 break;
 
             case "gameplay":
                 uiGameplay.SetActive(true);
+                musicHandler.SwitchAudioTrack("fight");
+                musicHandler.RestoreVolume();
                 break;
 
             case "pause":
                 uiPause.SetActive(true);
+                musicHandler.SwitchAudioTrack("fight");
+                musicHandler.LowerVolume();
                 break;
 
             case "results":
                 uiResults.SetActive(true);
+                musicHandler.SwitchAudioTrack("fight");
+                musicHandler.LowerVolume();
                 break;
 
             case "win":
                 uiWin.SetActive(true);
+                musicHandler.SwitchAudioTrack("title");
+                musicHandler.RestoreVolume();
                 break;
 
             case "none":
