@@ -34,7 +34,8 @@ public class Player : MonoBehaviour
 
     [Header("Sound References")]
     [SerializeField] private SoundHandler soundHandler;
-    [SerializeField] private AudioClip playerHit;
+    [SerializeField] private AudioClip playerHitSound;
+    [SerializeField] private AudioClip explosiveSound;
 
     [Header("Debug")]
     [SerializeField] private bool godMode = false;
@@ -187,7 +188,7 @@ public class Player : MonoBehaviour
 
         health -= damage;
         immunityTimer = immunityTime;
-        soundHandler.PlaySound(playerHit, 0.4f, transform.position);
+        soundHandler.PlaySound(playerHitSound, 0.4f, transform.position);
 
         if (isDRSActive)
             shotgun.DRSReload();
@@ -263,11 +264,21 @@ public class Player : MonoBehaviour
         GameObject explosionParticle = Instantiate(explosionParticlePrefab, transform.position, transform.rotation);
         explosionParticle.GetComponent<ExplosionParticles>().StartParticles(edsRadious);
 
+        soundHandler.PlaySound(explosiveSound, 0.5f, transform.position);
+
         foreach (var collider in colliders)
         {
             if (collider.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.TakeDamage(edsDamage);
+            }
+
+            if (collider.TryGetComponent<ExplosiveBarrel>(out ExplosiveBarrel explosiveBarrel))
+            {
+                if (!explosiveBarrel.isExploding)
+                {
+                    explosiveBarrel.Hit();
+                }
             }
 
             if (collider.TryGetComponent<EnemyProjectile>(out EnemyProjectile projectile))

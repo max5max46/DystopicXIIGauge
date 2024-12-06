@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -44,6 +45,10 @@ public class EnemyProjectile : MonoBehaviour
 
         if (collision.GetComponent<Player>())
             collision.GetComponent<Player>().TakeDamage(damage);
+
+        if (collision.GetComponent<ExplosiveBarrel>())
+            if (!collision.GetComponent<ExplosiveBarrel>().isExploding)
+                collision.GetComponent<ExplosiveBarrel>().Hit();
 
         isDead = true;
         gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;

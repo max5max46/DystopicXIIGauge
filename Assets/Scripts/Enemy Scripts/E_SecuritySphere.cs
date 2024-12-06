@@ -112,6 +112,14 @@ public class E_SecuritySphere : Enemy
             {
                 player.TakeDamage(damage);
             }
+
+            if (collider.TryGetComponent<ExplosiveBarrel>(out ExplosiveBarrel explosiveBarrel))
+            {
+                if (!explosiveBarrel.isExploding)
+                {
+                    explosiveBarrel.Hit();
+                }
+            }
         }
     }
 }

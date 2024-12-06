@@ -214,6 +214,8 @@ MonoBehaviour:
   amountOfParts: 100
   deathParticleColor: {r: 0.59943396, g: 0.9528302, b: 0.35506406, a: 1}
   dealthParticlePrefab: {fileID: 553659010883642741, guid: f8f5c0aeb99fc4543846735f232118e0, type: 3}
+  enemyDeathSound: {fileID: 8300000, guid: 9f4243a8f31dd684ca168127d8b31028, type: 3}
+  soundHandler: {fileID: 0}
   player: {fileID: 0}
   waveManager: {fileID: 0}
   health: 0
@@ -221,8 +223,8 @@ MonoBehaviour:
   attackRadius: 3
   damageDealtToEnemies: 5
   explosionParticlePrefab: {fileID: 6451796474764730788, guid: 69f74d92cc43d6f409e1d37e2d9c5c9d, type: 3}
-  debugCircle: {fileID: 7501190897879971693}
-  isVisualAttackOn: 1
+  explosionRadiousVisual: {fileID: 7501190897879971693}
+  explosionSound: {fileID: 8300000, guid: bd8aee2c6de53c949b56b72294b0f272, type: 3}
   isExploding: 0
 --- !u!195 &4339891970781640479
 NavMeshAgent:
@@ -257,7 +259,7 @@ GameObject:
   - component: {fileID: 248844056668350375}
   - component: {fileID: 5060106543883761570}
   m_Layer: 6
-  m_Name: DebugCircle
+  m_Name: ExplosiveRadiousVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,7 +322,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.8509804, g: 0.48539054, b: 0.050980408, a: 0.22745098}
+  m_Color: {r: 0.8509804, g: 0.28843755, b: 0.050980408, a: 0.22745098}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

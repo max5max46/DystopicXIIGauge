@@ -203,6 +203,8 @@ MonoBehaviour:
   amountOfParts: 1000
   deathParticleColor: {r: 0.7857347, g: 0.3237362, b: 0.9150943, a: 1}
   dealthParticlePrefab: {fileID: 553659010883642741, guid: f8f5c0aeb99fc4543846735f232118e0, type: 3}
+  enemyDeathSound: {fileID: 8300000, guid: 9f4243a8f31dd684ca168127d8b31028, type: 3}
+  soundHandler: {fileID: 0}
   player: {fileID: 0}
   waveManager: {fileID: 0}
   health: 0
@@ -212,6 +214,7 @@ MonoBehaviour:
     m_Bits: 137
   projectileSpeed: 0.12
   projectilePrefab: {fileID: 2903972510487743284, guid: 034c490ff2556644e833207775442441, type: 3}
+  fireProjectile: {fileID: 8300000, guid: c093c5ae55db2b44883c329c791ca921, type: 3}
 --- !u!195 &142781333362872613
 NavMeshAgent:
   m_ObjectHideFlags: 0

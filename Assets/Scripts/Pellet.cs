@@ -61,6 +61,10 @@ public class Pellet : MonoBehaviour
         if (hit.transform.GetComponent<EnemyProjectile>())
             hit.transform.GetComponent<EnemyProjectile>().Kill();
 
+        if (hit.transform.GetComponent<ExplosiveBarrel>())
+            if (!hit.transform.GetComponent<ExplosiveBarrel>().isExploding)
+                hit.transform.GetComponent<ExplosiveBarrel>().Hit();
+
         isDead = true;
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<CircleCollider2D>().enabled = false;

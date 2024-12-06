@@ -12,6 +12,9 @@ public class E_SecurityPyramid : Enemy
     [Header("Additional References")]
     [SerializeField] private GameObject projectilePrefab;
 
+    [Header("Additional Sound References")]
+    [SerializeField] private AudioClip fireProjectile;
+
     private void Start()
     {
         waveManager = FindFirstObjectByType<WaveManager>();
@@ -68,6 +71,8 @@ public class E_SecurityPyramid : Enemy
 
     void Attack()
     {
+        soundHandler.PlaySound(fireProjectile, 0.2f, transform.position);
+
         GameObject projectile = Instantiate(projectilePrefab);
 
         projectile.GetComponent<EnemyProjectile>().damage = damage;

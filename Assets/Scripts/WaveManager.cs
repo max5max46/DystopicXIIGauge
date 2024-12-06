@@ -36,6 +36,7 @@ public class WaveManager : MonoBehaviour
 
     private RoundManager roundManager;
     private GameObject player;
+    private SoundHandler soundHandler;
 
     [HideInInspector] public List<GameObject> enemies;
     [HideInInspector] public int totalEnemiesInCurrentWave;
@@ -51,6 +52,7 @@ public class WaveManager : MonoBehaviour
     {
         roundManager = FindFirstObjectByType<RoundManager>();
         player = FindFirstObjectByType<Player>().gameObject;
+        soundHandler = FindFirstObjectByType<SoundHandler>();
         enemies = new List<GameObject>();
         currentWave = 0;
         totalWaveGS = -roundManager.gsReceivedPerHealthPoint * player.GetComponent<Player>().health;
@@ -59,6 +61,7 @@ public class WaveManager : MonoBehaviour
         foreach(Spawner spawner in spawners)
         {
             spawner.player = player;
+            spawner.soundHandler = soundHandler;
             spawner.waveManager = this;
         }
     }

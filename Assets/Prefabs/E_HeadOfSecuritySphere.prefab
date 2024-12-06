@@ -203,6 +203,8 @@ MonoBehaviour:
   amountOfParts: 100000
   deathParticleColor: {r: 0.9528302, g: 0.7323322, b: 0.17528482, a: 1}
   dealthParticlePrefab: {fileID: 553659010883642741, guid: f8f5c0aeb99fc4543846735f232118e0, type: 3}
+  enemyDeathSound: {fileID: 8300000, guid: 9f4243a8f31dd684ca168127d8b31028, type: 3}
+  soundHandler: {fileID: 0}
   player: {fileID: 0}
   waveManager: {fileID: 0}
   health: 0

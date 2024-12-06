@@ -12,13 +12,13 @@ public class MusicHandler : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Slider volumeSlider;
+    [SerializeField] private AudioSource musicPlayer;
 
     [Header("Sound References")]
     [SerializeField] private AudioClip titleMusic;
     [SerializeField] private AudioClip shopMusic;
     [SerializeField] private AudioClip fightMusic;
 
-    private AudioSource musicPlayer;
     private float currentTrackVolume;
     private string currentTrackName;
     private bool isLowerVolume;
@@ -26,7 +26,6 @@ public class MusicHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        musicPlayer = this.GetComponent<AudioSource>();
         isLowerVolume = false;
 
         currentTrackName = "";
@@ -38,7 +37,8 @@ public class MusicHandler : MonoBehaviour
         if (name == currentTrackName)
             return;
 
-        musicPlayer.Stop();
+        if (musicPlayer.isPlaying)
+            musicPlayer.Stop();
 
         switch (name)
         {

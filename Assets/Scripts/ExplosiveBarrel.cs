@@ -2,80 +2,72 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class E_SecurityCylinder : Enemy
+public class ExplosiveBarrel : MonoBehaviour
 {
-    [Header("Additional Properties")]
+    [Header("Properties")]
+    [SerializeField] private float timeToExplode;
     [SerializeField] private float attackRadius;
     [SerializeField] private int damageDealtToEnemies;
+    [SerializeField] private int damageDealtToPlayer;
 
-    [Header("Additional References")]
+    [Header("References")]
     [SerializeField] private GameObject explosionParticlePrefab;
     [SerializeField] private GameObject explosionRadiousVisual;
 
-    [Header("Additional Sound References")]
-    [SerializeField] private AudioClip explosionSound;
+    [Header("Sound References")]
+    [SerializeField] private AudioClip explosiveSound;
 
-
+    private SoundHandler soundHandler;
+    private float explosionTimer;
     [HideInInspector] public bool isExploding;
+    [HideInInspector] public bool isAboutToExplode;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        waveManager = FindFirstObjectByType<WaveManager>();
-        player = FindFirstObjectByType<Player>().gameObject;
+        soundHandler = FindFirstObjectByType<SoundHandler>();
 
+        explosionTimer = 0;
+        isAboutToExplode = false;
         isExploding = false;
 
         explosionRadiousVisual.SetActive(false);
         explosionRadiousVisual.transform.localScale = new Vector3(attackRadius * 2, attackRadius * 2);
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (attackCooldownTimer >= 0)
-            attackCooldownTimer -= Time.deltaTime;
+        if (isAboutToExplode)
+            explosionTimer -= Time.deltaTime;
 
-        if (attackCooldownTimer < 0)
-            explosionRadiousVisual.SetActive(false);
-
-        if (state == EnemyState.Moving)
-        {
-            Movement();
-
-            // Condition to switch to Attacking
-            if (Vector2.Distance(player.transform.position, transform.position) < disFromPlayerToStartAttacking)
-            {
-                agent.isStopped = true;
-                attackWindupTimer = attackWindup;
-                state = EnemyState.Attacking;
-            }
-        }
-        else if (state == EnemyState.Attacking)
-        {
-            attackWindupTimer -= Time.deltaTime;
-
-            explosionRadiousVisual.SetActive(true);
-
-            if (attackWindupTimer < 0 && attackCooldownTimer < 0)
-            {
-                Attack();
-            }
-        }
+        if (explosionTimer < 0 && !isExploding)
+            Explode();
     }
 
-    void Attack()
+    public void Hit()
+    {
+        if (isAboutToExplode)
+            return;
+
+        explosionRadiousVisual.SetActive(true);
+
+        isAboutToExplode = true;
+        explosionTimer = timeToExplode;
+    }
+
+    void Explode()
     {
         isExploding = true;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius);
 
-        soundHandler.PlaySound(explosionSound, 0.2f, transform.position);
-
         foreach (var collider in colliders)
         {
             if (collider.TryGetComponent<Player>(out Player player))
-                player.TakeDamage(damage);
+                player.TakeDamage(damageDealtToPlayer);
 
-            if (collider != this && collider.TryGetComponent<Enemy>(out Enemy enemy))
+            if (collider.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 if (collider.GetComponent<E_SecurityCylinder>())
                 {
@@ -90,7 +82,7 @@ public class E_SecurityCylinder : Enemy
                 }
             }
 
-            if (collider.TryGetComponent<ExplosiveBarrel>(out ExplosiveBarrel explosiveBarrel))
+            if (collider != this && collider.TryGetComponent<ExplosiveBarrel>(out ExplosiveBarrel explosiveBarrel))
             {
                 if (!explosiveBarrel.isExploding)
                 {
@@ -104,17 +96,10 @@ public class E_SecurityCylinder : Enemy
             }
         }
 
-        player.GetComponent<Player>().ReceivePartsInRun(amountOfParts);
-        waveManager.EnemyDied(gameObject);
+        soundHandler.PlaySound(explosiveSound, 0.6f, transform.position);
+
         GameObject explosionParticle = Instantiate(explosionParticlePrefab, transform.position, transform.rotation);
         explosionParticle.GetComponent<ExplosionParticles>().StartParticles(attackRadius);
         Destroy(gameObject);
-    }
-
-    public override void Die()
-    {
-        agent.isStopped = true;
-        attackWindupTimer = attackWindup;
-        state = EnemyState.Attacking;
     }
 }

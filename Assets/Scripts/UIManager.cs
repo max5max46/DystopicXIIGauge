@@ -27,6 +27,9 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        previousUIScreenName = "main";
+        currentUIScreenName = "main";
+
         SwitchUIScreen("main");
     }
 

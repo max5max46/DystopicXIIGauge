@@ -23,8 +23,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected Color deathParticleColor;
 
     [Header("References")]
-    [SerializeField] private GameObject dealthParticlePrefab;
+    [SerializeField] protected GameObject dealthParticlePrefab;
 
+    [Header("Sound References")]
+    [SerializeField] private AudioClip enemyDeathSound;
+
+    [HideInInspector] public SoundHandler soundHandler;
     [HideInInspector] public GameObject player;
     [HideInInspector] public  WaveManager waveManager;
     [HideInInspector] public int health;
@@ -71,6 +75,9 @@ public class Enemy : MonoBehaviour
     {
         player.GetComponent<Player>().ReceivePartsInRun(amountOfParts);
         waveManager.EnemyDied(gameObject);
+
+        soundHandler.PlaySound(enemyDeathSound, 0.2f, transform.position);
+
         GameObject deathParticle = Instantiate(dealthParticlePrefab, transform.position, transform.rotation);
         deathParticle.GetComponent<DeathParticles>().StartParticles(deathParticleColor);
         Destroy(gameObject);
