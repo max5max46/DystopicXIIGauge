@@ -312,7 +312,5 @@ MonoBehaviour:
   raycastLayerMask:
     serializedVersion: 2
     m_Bits: 193
-  pelletThunk: {fileID: 8300000, guid: 58e05c42ee8ed954db262065037a409f, type: 3}
-  pelletHit: {fileID: 8300000, guid: eed8eea47fc339446907842f341accec, type: 3}
-  soundHandler: {fileID: 0}
+  hitParticlePrefab: {fileID: 553659010883642741, guid: 2c9b21cf3d36f054f8eba80f55dd1a93, type: 3}
   damage: 0

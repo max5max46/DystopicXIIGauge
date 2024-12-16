@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5660840591535409569}
   - component: {fileID: 2907253063863974946}
   m_Layer: 0
-  m_Name: DeathParticles
+  m_Name: HitParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 2213893109925175119}
   - component: {fileID: 243044348328552094}
   m_Layer: 0
-  m_Name: DeathParticle
+  m_Name: HitParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,8 +161,8 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 1
+      minMaxState: 0
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -215,8 +215,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 1
+      scalar: 2
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -710,7 +710,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
+    type: 4
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -1026,7 +1026,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 5
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -1091,7 +1091,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.70270276
+          value: 0.32432565
           inSlope: 0
           outSlope: 0
           tangentMode: 0

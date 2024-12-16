@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float disFromPlayerToStartAttacking;
     [SerializeField] protected float stunTime;
     [SerializeField] protected int amountOfParts;
-    [SerializeField] protected Color deathParticleColor;
+    public Color deathParticleColor;
 
     [Header("References")]
     [SerializeField] protected GameObject dealthParticlePrefab;

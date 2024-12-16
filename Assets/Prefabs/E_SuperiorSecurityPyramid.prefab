@@ -198,7 +198,7 @@ MonoBehaviour:
   damage: 2
   attackCooldown: 1
   attackWindup: 0.1
-  disFromPlayerToStartAttacking: 8
+  disFromPlayerToStartAttacking: 7
   stunTime: 0.4
   amountOfParts: 1000
   deathParticleColor: {r: 0.7857347, g: 0.3237362, b: 0.9150943, a: 1}

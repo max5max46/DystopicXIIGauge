@@ -10,6 +10,9 @@ public class Pellet : MonoBehaviour
     [SerializeField] private float projectileLifeSpan = 2;
     [SerializeField] private LayerMask raycastLayerMask;
 
+    [Header("References")]
+    [SerializeField] protected GameObject hitParticlePrefab;
+
     private float randomSpeedMultiplier;
     private float lifeSpanTimer;
     private bool isDead;
@@ -40,7 +43,6 @@ public class Pellet : MonoBehaviour
         {
             previousPosition = transform.position;
 
-            if (!isDead)
             transform.position += transform.right * projectileSpeed * randomSpeedMultiplier;
 
             RaycastHit2D hit = Physics2D.Raycast(previousPosition, transform.position - previousPosition,Vector3.Distance(previousPosition, transform.position), raycastLayerMask);
@@ -56,7 +58,18 @@ public class Pellet : MonoBehaviour
 
         if (hit.transform.GetComponent<Enemy>())
             if (hit.transform.GetComponent<Enemy>().health > 0)
+            {
+                GameObject hitParticle = Instantiate(hitParticlePrefab);
+                hitParticle.transform.position = hit.point;
+
+                Vector3 particleDirection = Quaternion.Euler(0, 0, -90) * (hit.point - (Vector2)hit.transform.position);
+                float angle = Mathf.Atan2(particleDirection.y, particleDirection.x) * Mathf.Rad2Deg;
+                hitParticle.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+                hitParticle.GetComponent<DeathParticles>().StartParticles(hit.transform.GetComponent<Enemy>().deathParticleColor);
+
                 hit.transform.GetComponent<Enemy>().TakeDamage(damage);
+            }
 
         if (hit.transform.GetComponent<EnemyProjectile>())
             hit.transform.GetComponent<EnemyProjectile>().Kill();

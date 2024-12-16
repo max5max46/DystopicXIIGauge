@@ -9297,7 +9297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &760002452
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18594,7 +18594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: speed
   upgradeStartingStat: 1
-  upgradeGoesUpBy: 0.2
+  upgradeGoesUpBy: 0.15
   upgradeEndingLevel: 3
   upgradeDescription: 'Your movement speed.
 
