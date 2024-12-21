@@ -8,6 +8,10 @@ public class EnemyProjectile : MonoBehaviour
 {
     [Header("Properties")]
     [SerializeField] private float projectileLifeSpan = 2;
+    [SerializeField] private Color deathParticleColor;
+
+    [Header("References")]
+    [SerializeField] protected GameObject dealthParticlePrefab;
 
 
     private float lifeSpanTimer;
@@ -40,6 +44,9 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDead)
+            return;
+
         if (collision.GetComponent<EnemyProjectile>() || collision.GetComponent<Enemy>())
             return;
 
@@ -51,13 +58,24 @@ public class EnemyProjectile : MonoBehaviour
                 collision.GetComponent<ExplosiveBarrel>().Hit();
 
         isDead = true;
+
+        GameObject deathParticle = Instantiate(dealthParticlePrefab, transform.position, transform.rotation);
+        deathParticle.GetComponent<OneTimeParticle>().StartParticles(deathParticleColor);
+
         gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
     }
 
     public void Kill()
     {
+        if (isDead)
+            return;
+
         isDead = true;
+
+        GameObject deathParticle = Instantiate(dealthParticlePrefab, transform.position, transform.rotation);
+        deathParticle.GetComponent<OneTimeParticle>().StartParticles(deathParticleColor);
+
         gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
     }

@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
                 if (Input.GetKey(KeyCode.A))
                     leftPressed = true;
 
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (Input.GetKey(KeyCode.Mouse0))
                     firePressed = true;
 
                 if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -262,7 +262,7 @@ public class Player : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, edsRadious);
 
         GameObject explosionParticle = Instantiate(explosionParticlePrefab, transform.position, transform.rotation);
-        explosionParticle.GetComponent<ExplosionParticles>().StartParticles(edsRadious);
+        explosionParticle.GetComponent<OneTimeParticle>().StartParticles(null, edsRadious);
 
         soundHandler.PlaySound(explosiveSound, 0.5f, transform.position);
 

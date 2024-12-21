@@ -12,6 +12,8 @@ public class ProgramManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private UpgradeManager upgradeManager;
+    [SerializeField] private SoundHandler soundHandler;
+    [SerializeField] private MusicHandler musicHandler;
 
     private void Start()
     {
@@ -80,6 +82,8 @@ public class ProgramManager : MonoBehaviour
         PlayerData data = new PlayerData();
 
         data.GS = player.geometricScrap;
+        data.volumeSFX = soundHandler.volumeSlider.value;
+        data.volumeMusic = musicHandler.volumeSlider.value;
 
         data.pHealthCurrentStat = upgradeManager.pHealth.upgrade.currentStat;
         data.pHealthCurrentLevel = upgradeManager.pHealth.upgrade.currentUpgradeLevel;
@@ -127,6 +131,8 @@ public class ProgramManager : MonoBehaviour
             file.Close();
 
             player.geometricScrap = data.GS;
+            soundHandler.volumeSlider.value = data.volumeSFX;
+            musicHandler.volumeSlider.value = data.volumeMusic;
             upgradeManager.SetAllUpgrades(data);
 
         }
@@ -140,6 +146,8 @@ public class ProgramManager : MonoBehaviour
 public class PlayerData
 {
     public int GS;
+    public float volumeSFX;
+    public float volumeMusic;
 
     public float pHealthCurrentStat;
     public int pHealthCurrentLevel;

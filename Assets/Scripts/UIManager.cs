@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
 
-    [Header("References")]
+    [Header("UI Screen References")]
     [SerializeField] private GameObject uiMain;
     [SerializeField] private GameObject uiWarning;
     [SerializeField] private GameObject uiOptions;
@@ -16,9 +17,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject uiPause;
     [SerializeField] private GameObject uiResults;
     [SerializeField] private GameObject uiWin;
+
+    [Header("Additional References")]
     [SerializeField] private Player player;
     [SerializeField] private ProgramManager programManager;
     [SerializeField] private MusicHandler musicHandler;
+    [SerializeField] private Button clearSaveButton;
 
     private string previousUIScreenName;
     [HideInInspector] public string currentUIScreenName;
@@ -32,6 +36,8 @@ public class UIManager : MonoBehaviour
 
         SwitchUIScreen("main");
     }
+
+
 
     public void SwitchUIScreen(string name = "none")
     {
@@ -138,6 +144,12 @@ public class UIManager : MonoBehaviour
 
         previousUIScreenName = currentUIScreenName;
         currentUIScreenName = name;
+
+        // Handles whether or not the CLear Save Button should be grayed out
+        if (programManager.DoesSaveExist())
+            clearSaveButton.interactable = true;
+        else
+            clearSaveButton.interactable = false;
     }
 
 

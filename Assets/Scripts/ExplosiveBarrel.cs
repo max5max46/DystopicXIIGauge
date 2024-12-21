@@ -99,7 +99,7 @@ public class ExplosiveBarrel : MonoBehaviour
         soundHandler.PlaySound(explosiveSound, 0.6f, transform.position);
 
         GameObject explosionParticle = Instantiate(explosionParticlePrefab, transform.position, transform.rotation);
-        explosionParticle.GetComponent<ExplosionParticles>().StartParticles(attackRadius);
+        explosionParticle.GetComponent<OneTimeParticle>().StartParticles(null, attackRadius);
         Destroy(gameObject);
     }
 }

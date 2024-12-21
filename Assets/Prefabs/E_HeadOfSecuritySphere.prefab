@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 461198953563888726}
   - component: {fileID: 4127437911791314491}
   - component: {fileID: 4705813543799565344}
-  - component: {fileID: 6120502083562073196}
+  - component: {fileID: 1120642457142507575}
   - component: {fileID: 3170246756365682643}
   m_Layer: 6
   m_Name: E_HeadOfSecuritySphere
@@ -182,7 +182,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6120502083562073196
+--- !u!114 &1120642457142507575
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,18 +191,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8481847175498378195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 918cf4c61bb07c54a9bdadc6f55eb0e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c087f6dacae9cc4180bf51737842b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 300
+  maxHealth: 400
   damage: 2
   attackCooldown: 1
   attackWindup: 0.1
   disFromPlayerToStartAttacking: 1.7
   stunTime: 0.1
   amountOfParts: 100000
-  deathParticleColor: {r: 0.9528302, g: 0.7323322, b: 0.17528482, a: 1}
+  deathParticleColor: {r: 0.87843144, g: 0.654902, b: 0.09019608, a: 1}
+  spriteRenderer: {fileID: 2992671744942127415}
   dealthParticlePrefab: {fileID: 553659010883642741, guid: f8f5c0aeb99fc4543846735f232118e0, type: 3}
+  gsParticlePrefab: {fileID: 553659010883642741, guid: f28096d5035ea5e4e9e902768c2c7c6a, type: 3}
   enemyDeathSound: {fileID: 8300000, guid: 9f4243a8f31dd684ca168127d8b31028, type: 3}
   soundHandler: {fileID: 0}
   player: {fileID: 0}
@@ -211,7 +213,14 @@ MonoBehaviour:
   isDead: 0
   attackRadius: 1.4
   attackEndLag: 0.3
+  spinAttackMinCooldown: 5
+  spinAttackMaxCooldown: 7
+  timeBetweenVolleys: 0.25
+  amountOfVolleys: 6
+  projectileSpeed: 0.12
+  projectilePrefab: {fileID: 2903972510487743284, guid: 034c490ff2556644e833207775442441, type: 3}
   slamAttackVisualPrefab: {fileID: 3257742817851323708, guid: 5c856594eb36d5b41af9a93e72f9f5c5, type: 3}
+  fireProjectile: {fileID: 8300000, guid: c093c5ae55db2b44883c329c791ca921, type: 3}
   isVisualAttackOn: 1
 --- !u!195 &3170246756365682643
 NavMeshAgent:

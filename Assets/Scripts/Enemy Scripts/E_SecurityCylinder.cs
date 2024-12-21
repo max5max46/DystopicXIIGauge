@@ -20,6 +20,7 @@ public class E_SecurityCylinder : Enemy
 
     private void Start()
     {
+        soundHandler = FindAnyObjectByType<SoundHandler>();
         waveManager = FindFirstObjectByType<WaveManager>();
         player = FindFirstObjectByType<Player>().gameObject;
 
@@ -106,8 +107,13 @@ public class E_SecurityCylinder : Enemy
 
         player.GetComponent<Player>().ReceivePartsInRun(amountOfParts);
         waveManager.EnemyDied(gameObject);
+
         GameObject explosionParticle = Instantiate(explosionParticlePrefab, transform.position, transform.rotation);
-        explosionParticle.GetComponent<ExplosionParticles>().StartParticles(attackRadius);
+        explosionParticle.GetComponent<OneTimeParticle>().StartParticles(null, attackRadius);
+
+        GameObject gsParticle = Instantiate(gsParticlePrefab, transform.position, transform.rotation);
+        gsParticle.GetComponent<OneTimeParticle>().StartParticles();
+
         Destroy(gameObject);
     }
 

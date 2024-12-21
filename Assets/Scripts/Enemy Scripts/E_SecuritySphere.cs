@@ -22,6 +22,7 @@ public class E_SecuritySphere : Enemy
         hasAttacked = false;
         attackEndLagTimer = 0;
 
+        soundHandler = FindAnyObjectByType<SoundHandler>();
         waveManager = FindFirstObjectByType<WaveManager>();
         player = FindFirstObjectByType<Player>().gameObject;
 
@@ -31,6 +32,8 @@ public class E_SecuritySphere : Enemy
     {
         if (stunTimer < 0)
         {
+            spriteRenderer.color = Color.white;
+
             if (attackCooldownTimer >= 0)
                 attackCooldownTimer -= Time.deltaTime;
 
@@ -92,6 +95,7 @@ public class E_SecuritySphere : Enemy
         }
         else
         {
+            spriteRenderer.color = stunTint;
             agent.isStopped = true;
             stunTimer -= Time.deltaTime;
         }

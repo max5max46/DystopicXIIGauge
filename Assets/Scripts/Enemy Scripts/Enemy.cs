@@ -23,7 +23,9 @@ public class Enemy : MonoBehaviour
     public Color deathParticleColor;
 
     [Header("References")]
+    [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected GameObject dealthParticlePrefab;
+    [SerializeField] protected GameObject gsParticlePrefab;
 
     [Header("Sound References")]
     [SerializeField] private AudioClip enemyDeathSound;
@@ -39,6 +41,8 @@ public class Enemy : MonoBehaviour
     protected float attackCooldownTimer;
     protected float attackWindupTimer;
     protected float stunTimer;
+
+    protected Color stunTint = new Color(0.7f, 0.7f, 0.7f);
 
     void Awake()
     {
@@ -79,7 +83,11 @@ public class Enemy : MonoBehaviour
         soundHandler.PlaySound(enemyDeathSound, 0.2f, transform.position);
 
         GameObject deathParticle = Instantiate(dealthParticlePrefab, transform.position, transform.rotation);
-        deathParticle.GetComponent<DeathParticles>().StartParticles(deathParticleColor);
+        deathParticle.GetComponent<OneTimeParticle>().StartParticles(deathParticleColor);
+
+        GameObject gsParticle = Instantiate(gsParticlePrefab, transform.position, transform.rotation);
+        gsParticle.GetComponent<OneTimeParticle>().StartParticles();
+
         Destroy(gameObject);
 
     }

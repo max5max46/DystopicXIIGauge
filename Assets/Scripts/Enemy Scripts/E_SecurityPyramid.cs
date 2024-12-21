@@ -17,6 +17,7 @@ public class E_SecurityPyramid : Enemy
 
     private void Start()
     {
+        soundHandler = FindAnyObjectByType<SoundHandler>();
         waveManager = FindFirstObjectByType<WaveManager>();
         player = FindFirstObjectByType<Player>().gameObject;
     }
@@ -26,6 +27,8 @@ public class E_SecurityPyramid : Enemy
     {
         if (stunTimer < 0)
         {
+            spriteRenderer.color = Color.white;
+
             if (attackCooldownTimer >= 0)
                 attackCooldownTimer -= Time.deltaTime;
 
@@ -64,6 +67,7 @@ public class E_SecurityPyramid : Enemy
         }
         else
         {
+            spriteRenderer.color = stunTint;
             agent.isStopped = true;
             stunTimer -= Time.deltaTime;
         }

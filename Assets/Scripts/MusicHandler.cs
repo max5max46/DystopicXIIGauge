@@ -11,7 +11,7 @@ public class MusicHandler : MonoBehaviour
     [SerializeField] private float fightVolume;
 
     [Header("References")]
-    [SerializeField] private Slider volumeSlider;
+    public Slider volumeSlider;
     [SerializeField] private AudioSource musicPlayer;
 
     [Header("Sound References")]

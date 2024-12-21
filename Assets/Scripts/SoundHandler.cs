@@ -7,7 +7,7 @@ public class SoundHandler : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject soundPlayerPrefab;
-    [SerializeField] private Slider volumeSlider;
+    public Slider volumeSlider;
 
     public void PlaySound(AudioClip sound, float volume = 1, Vector3? position = null)
     {

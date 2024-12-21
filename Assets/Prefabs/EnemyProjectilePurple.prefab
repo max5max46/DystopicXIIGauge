@@ -274,6 +274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileLifeSpan: 4
+  deathParticleColor: {r: 0.90196085, g: 0.54509807, b: 1, a: 1}
+  dealthParticlePrefab: {fileID: 553659010883642741, guid: fbe6eed0ba209934b93048700855df41, type: 3}
   projectileSpeed: 0.1
   damage: 0
 --- !u!1 &7723966556031196750

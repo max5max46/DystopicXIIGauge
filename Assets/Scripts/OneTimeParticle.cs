@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class ExplosionParticles : MonoBehaviour
+public class OneTimeParticle : MonoBehaviour
 {
-
     [Header("References")]
     [SerializeField] private ParticleSystem particles;
 
     // Start is called before the first frame update
-    public void StartParticles(float radious)
+    public void StartParticles(Color? particleColor = null, float radious = 1)
     {
-        ParticleSystem.ShapeModule shape = particles.shape;
-        shape.radius = radious;
+
+        if (particleColor != null)
+            particles.startColor = (Color)particleColor;
+
+        if (radious != 1)
+        {
+            ParticleSystem.ShapeModule shape = particles.shape;
+            shape.radius = radious;
+        }
+
         particles.Play();
     }
 

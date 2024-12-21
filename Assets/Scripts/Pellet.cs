@@ -66,7 +66,7 @@ public class Pellet : MonoBehaviour
                 float angle = Mathf.Atan2(particleDirection.y, particleDirection.x) * Mathf.Rad2Deg;
                 hitParticle.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                hitParticle.GetComponent<DeathParticles>().StartParticles(hit.transform.GetComponent<Enemy>().deathParticleColor);
+                hitParticle.GetComponent<OneTimeParticle>().StartParticles(hit.transform.GetComponent<Enemy>().deathParticleColor);
 
                 hit.transform.GetComponent<Enemy>().TakeDamage(damage);
             }

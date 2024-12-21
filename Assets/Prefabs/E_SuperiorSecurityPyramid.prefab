@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: ee552bc766d26844cb631488b40d5284, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -202,7 +202,9 @@ MonoBehaviour:
   stunTime: 0.4
   amountOfParts: 1000
   deathParticleColor: {r: 0.7857347, g: 0.3237362, b: 0.9150943, a: 1}
+  spriteRenderer: {fileID: 2822152771386331145}
   dealthParticlePrefab: {fileID: 553659010883642741, guid: f8f5c0aeb99fc4543846735f232118e0, type: 3}
+  gsParticlePrefab: {fileID: 553659010883642741, guid: f28096d5035ea5e4e9e902768c2c7c6a, type: 3}
   enemyDeathSound: {fileID: 8300000, guid: 9f4243a8f31dd684ca168127d8b31028, type: 3}
   soundHandler: {fileID: 0}
   player: {fileID: 0}
