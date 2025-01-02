@@ -7,9 +7,8 @@ public class WaveManager : MonoBehaviour
 {
     [Header("Wave Properties")]
     public List<int> wavePoints;
-    [SerializeField] private int gsPerWave;
 
-    [Header("Enemy Point Values")]
+    [Header("Enemy: Point Values")]
     [SerializeField] private int securitySpherePointVal;
     [SerializeField] private int securityPyramidPointVal;
     [SerializeField] private int supSecuritySpherePointVal;
@@ -17,13 +16,21 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private int securityCylinderPointVal;
     [SerializeField] private int headOfSecurityPointVal;
 
-    [Header("Enemy Wave to Begin Spawning")]
-    [SerializeField] private int securitySphereWaveToBeginSpawning;
-    [SerializeField] private int securityPyramidWaveToBeginSpawning;
-    [SerializeField] private int supSecuritySphereWaveToBeginSpawning;
-    [SerializeField] private int supSecurityPyramidWaveToBeginSpawning;
-    [SerializeField] private int securityCylinderWaveToBeginSpawning;
-    [SerializeField] private int headOfSecurityWaveToBeginSpawning;
+    [Header("Enemy: Waves to Spawn")]
+    [SerializeField] private List<bool> securitySphereWavesToSpawn;
+    [SerializeField] private List<bool> securityPyramidWavesToSpawn;
+    [SerializeField] private List<bool> supSecuritySphereWavesToSpawn;
+    [SerializeField] private List<bool> supSecurityPyramidWavesToSpawn;
+    [SerializeField] private List<bool> securityCylinderWavesToSpawn;
+    [SerializeField] private List<bool> headOfSecurityWavesToSpawn;
+
+    [Header("Enemy: Probability of Spawning on Waves")]
+    [SerializeField] private List<float> securitySphereWaveSpawnProbability;
+    [SerializeField] private List<float> securityPyramidWaveSpawnProbability;
+    [SerializeField] private List<float> supSecuritySphereWaveSpawnProbability;
+    [SerializeField] private List<float> supSecurityPyramidWaveSpawnProbability;
+    [SerializeField] private List<float> securityCylinderWaveSpawnProbability;
+    [SerializeField] private List<float> headOfSecurityWaveSpawnProbability;
 
     [Header("References")]
     [SerializeField] private Spawner[] spawners;
@@ -64,6 +71,25 @@ public class WaveManager : MonoBehaviour
             spawner.soundHandler = soundHandler;
             spawner.waveManager = this;
         }
+
+        // Testing Lists
+        int index = wavePoints.Count - 1;
+
+        bool boolTest = securitySphereWavesToSpawn[index];
+        boolTest = securityPyramidWavesToSpawn[index];
+        boolTest = securityCylinderWavesToSpawn[index];
+        boolTest = supSecuritySphereWavesToSpawn[index];
+        boolTest = supSecurityPyramidWavesToSpawn[index];
+        boolTest = headOfSecurityWavesToSpawn[index];
+
+        float floatTest = securityCylinderWaveSpawnProbability[index];
+        floatTest = securityPyramidWaveSpawnProbability[index];
+        floatTest = securityCylinderWaveSpawnProbability[index];
+        floatTest = supSecuritySphereWaveSpawnProbability[index];
+        floatTest = supSecurityPyramidWaveSpawnProbability[index];
+        floatTest = headOfSecurityWaveSpawnProbability[index];
+
+
     }
 
     // Update is called once per frame
@@ -95,23 +121,23 @@ public class WaveManager : MonoBehaviour
 
         List<int> idsToSpawn = new List<int>();
 
-        if (securitySphereWaveToBeginSpawning <= currentWave)
+        if (securitySphereWavesToSpawn[currentWave])
             idsToSpawn.Add(0);
 
-        if (securityPyramidWaveToBeginSpawning <= currentWave)
+        if (securityPyramidWavesToSpawn[currentWave])
             idsToSpawn.Add(1);
 
-        if (supSecuritySphereWaveToBeginSpawning <= currentWave)
+        if (supSecuritySphereWavesToSpawn[currentWave])
             idsToSpawn.Add(2);
 
-        if (supSecurityPyramidWaveToBeginSpawning <= currentWave)
+        if (supSecurityPyramidWavesToSpawn[currentWave])
             idsToSpawn.Add(3);
 
-        if (securityCylinderWaveToBeginSpawning <= currentWave)
+        if (securityCylinderWavesToSpawn[currentWave])
             idsToSpawn.Add(4);
 
         // Boss Spawn
-        if (headOfSecurityWaveToBeginSpawning <= currentWave)
+        if (headOfSecurityWavesToSpawn[currentWave])
         {
             points -= headOfSecurityPointVal;
             totalEnemiesInCurrentWave++;
@@ -133,43 +159,55 @@ public class WaveManager : MonoBehaviour
                 case 0:
                     if (points >= securitySpherePointVal)
                     {
-                        points -= securitySpherePointVal;
-                        totalEnemiesInCurrentWave++;
-                        enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(securitySpherePrefab));
+                        if (Random.Range(0f, 1f) < securitySphereWaveSpawnProbability[currentWave])
+                        {
+                            points -= securitySpherePointVal;
+                            totalEnemiesInCurrentWave++;
+                            enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(securitySpherePrefab));
+                        }
                     }
                     break;
 
                 case 1:
                     if (points >= securityPyramidPointVal)
                     {
-                        points -= securityPyramidPointVal;
-                        totalEnemiesInCurrentWave++;
-                        enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(securityPyramidPrefab));
+                        if (Random.Range(0f, 1f) < securityPyramidWaveSpawnProbability[currentWave])
+                        {
+                            points -= securityPyramidPointVal;
+                            totalEnemiesInCurrentWave++;
+                            enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(securityPyramidPrefab));
+                        }
                     }
                     break;
 
                 case 2:
                     if (points >= supSecuritySpherePointVal)
                     {
-                        points -= supSecuritySpherePointVal;
-                        totalEnemiesInCurrentWave++;
-                        enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(supSecuritySpherePrefab));
+                        if (Random.Range(0f, 1f) < supSecuritySphereWaveSpawnProbability[currentWave])
+                        {
+                            points -= supSecuritySpherePointVal;
+                            totalEnemiesInCurrentWave++;
+                            enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(supSecuritySpherePrefab));
+                        }
                     }
                     break;
 
                 case 3:
                     if (points >= supSecurityPyramidPointVal)
                     {
-                        points -= supSecurityPyramidPointVal;
-                        totalEnemiesInCurrentWave++;
-                        enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(supSecurityPyramidPrefab));
+                        if (Random.Range(0f, 1f) < supSecurityPyramidWaveSpawnProbability[currentWave])
+                        {
+                            points -= supSecurityPyramidPointVal;
+                            totalEnemiesInCurrentWave++;
+                            enemies.Add(spawners[Random.Range(0, spawners.Length)].SpawnEnemy(supSecurityPyramidPrefab));
+                        }
                     }
                     break;
 
                 case 4:
                     if (points >= securityCylinderPointVal)
                     {
-                        if (Random.Range(0, 2) == 1)
+                        if (Random.Range(0f, 1f) < securityCylinderWaveSpawnProbability[currentWave])
                         {
                             points -= securityCylinderPointVal;
                             totalEnemiesInCurrentWave++;
