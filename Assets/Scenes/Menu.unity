@@ -3525,6 +3525,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &219326441
 GameObject:
@@ -4052,6 +4054,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &262222700
 GameObject:
@@ -10130,7 +10134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &760002452
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14667,6 +14671,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &1142988525
 GameObject:
@@ -15244,6 +15250,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &1223935623
 GameObject:
@@ -18587,6 +18595,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &1468878388
 GameObject:
@@ -19754,6 +19764,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &1543839661
 GameObject:
@@ -21531,6 +21543,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &1674677440
 GameObject:
@@ -23094,6 +23108,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &1840714794
 GameObject:
@@ -23665,6 +23681,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &1888930918
 GameObject:
@@ -24329,6 +24347,8 @@ MonoBehaviour:
   descriptionText: {fileID: 11551506}
   descriptionStatText: {fileID: 1085588269}
   player: {fileID: 1319353600}
+  soundHandler: {fileID: 777911363}
+  upgradeSound: {fileID: 8300000, guid: c65e24beca5797e419b0734be67c8ef7, type: 3}
   upgradePipPrefab: {fileID: 23748296396088033, guid: c6b2eeb82bba742478e6f0405630c2e3, type: 3}
 --- !u!1 &1963163972
 GameObject:

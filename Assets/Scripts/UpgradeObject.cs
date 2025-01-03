@@ -38,6 +38,10 @@ public class UpgradeObject : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI descriptionStatText;
     [SerializeField] private Player player;
+    [SerializeField] private SoundHandler soundHandler;
+
+    [Header("Sound References")]
+    [SerializeField] private AudioClip upgradeSound;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject upgradePipPrefab;
@@ -111,6 +115,8 @@ public class UpgradeObject : MonoBehaviour
     {
         if (player.geometricScrap < upgradeCosts[upgrade.currentUpgradeLevel])
             return;
+
+        soundHandler.PlaySound(upgradeSound, 0.5f);
 
         player.geometricScrap -= upgradeCosts[upgrade.currentUpgradeLevel];
         upgrade.LevelUp();

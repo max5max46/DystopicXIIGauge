@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class E_SecurityCylinder : Enemy
 {
@@ -17,6 +18,7 @@ public class E_SecurityCylinder : Enemy
 
 
     [HideInInspector] public bool isExploding;
+    private Vector3 originalScale;
 
     private void Start()
     {
@@ -25,6 +27,8 @@ public class E_SecurityCylinder : Enemy
         player = FindFirstObjectByType<Player>().gameObject;
 
         isExploding = false;
+
+        originalScale = spriteRenderer.transform.localScale;
 
         explosionRadiousVisual.SetActive(false);
         explosionRadiousVisual.transform.localScale = new Vector3(attackRadius * 2, attackRadius * 2);
@@ -60,6 +64,16 @@ public class E_SecurityCylinder : Enemy
             {
                 Attack();
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (state == EnemyState.Attacking)
+        {
+            float wiggleFactor = 0.1f * (1 - (attackWindupTimer / attackWindup));
+            spriteRenderer.transform.localPosition = new Vector3(Random.Range(-wiggleFactor, wiggleFactor), Random.Range(-wiggleFactor, wiggleFactor), 0);
+            spriteRenderer.transform.localScale = originalScale * (1 + (0.1f * (1 - (attackWindupTimer / attackWindup))));
         }
     }
 

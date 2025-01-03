@@ -222,6 +222,7 @@ MonoBehaviour:
   damageDealtToPlayer: 2
   explosionParticlePrefab: {fileID: 6451796474764730788, guid: 69f74d92cc43d6f409e1d37e2d9c5c9d, type: 3}
   explosionRadiousVisual: {fileID: 6205430619963468990}
+  sprite: {fileID: 2612630905306368468}
   explosiveSound: {fileID: 8300000, guid: bd8aee2c6de53c949b56b72294b0f272, type: 3}
   isExploding: 0
   isAboutToExplode: 0

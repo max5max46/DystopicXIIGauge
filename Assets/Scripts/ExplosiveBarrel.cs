@@ -13,12 +13,14 @@ public class ExplosiveBarrel : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject explosionParticlePrefab;
     [SerializeField] private GameObject explosionRadiousVisual;
+    [SerializeField] private GameObject sprite;
 
     [Header("Sound References")]
     [SerializeField] private AudioClip explosiveSound;
 
     private SoundHandler soundHandler;
     private float explosionTimer;
+    private Vector3 originalScale;
     [HideInInspector] public bool isExploding;
     [HideInInspector] public bool isAboutToExplode;
 
@@ -30,6 +32,8 @@ public class ExplosiveBarrel : MonoBehaviour
         explosionTimer = 0;
         isAboutToExplode = false;
         isExploding = false;
+
+        originalScale = sprite.transform.localScale;
 
         explosionRadiousVisual.SetActive(false);
         explosionRadiousVisual.transform.localScale = new Vector3(attackRadius * 2, attackRadius * 2);
@@ -43,6 +47,16 @@ public class ExplosiveBarrel : MonoBehaviour
 
         if (explosionTimer < 0 && !isExploding)
             Explode();
+    }
+
+    private void FixedUpdate()
+    {
+        if (isAboutToExplode)
+        {
+            float wiggleFactor = 0.1f * (1 - (explosionTimer / timeToExplode));
+            sprite.transform.localPosition = new Vector3(Random.Range(-wiggleFactor, wiggleFactor), Random.Range(-wiggleFactor, wiggleFactor), 0);
+            sprite.transform.localScale = originalScale * (1 + (0.1f * (1 - (explosionTimer / timeToExplode))));
+        }
     }
 
     public void Hit()
