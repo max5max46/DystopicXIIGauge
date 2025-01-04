@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939403b4d12cbbc4fbaaba2800f86f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 17
+  maxHealth: 10
   damage: 2
   attackCooldown: 0.5
   attackWindup: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   health: 0
   isDead: 0
   projectileSpeed: 0.12
-  aimRotationSpeed: 1.1
+  aimRotationSpeed: 0.9
   projectilePrefab: {fileID: 2903972510487743284, guid: 3f257ab8ce5d66841a4cdb81099e5c4b, type: 3}
   fireProjectile: {fileID: 8300000, guid: c093c5ae55db2b44883c329c791ca921, type: 3}
 --- !u!195 &6695034056657243909

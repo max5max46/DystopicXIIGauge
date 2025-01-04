@@ -98,7 +98,7 @@ public class E_SecurityShieldBearer : Enemy
     {
         soundHandler.PlaySound(fireProjectile, 0.05f, transform.position);
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 7; i++)
         {
             GameObject projectile = Instantiate(projectilePrefab);
 
@@ -106,7 +106,7 @@ public class E_SecurityShieldBearer : Enemy
             projectile.GetComponent<EnemyShield>().projectileSpeed = projectileSpeed;
 
             projectile.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-            projectile.transform.rotation = Quaternion.Euler(0, 0, (currentAimAngle - 30) + (15 * i));
+            projectile.transform.rotation = Quaternion.Euler(0, 0, (currentAimAngle - 45) + (15 * i));
         }
     }
 }
