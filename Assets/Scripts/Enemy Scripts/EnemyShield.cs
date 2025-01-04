@@ -4,7 +4,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyProjectile : MonoBehaviour
+public class EnemyShield : MonoBehaviour
 {
     [Header("Properties")]
     [SerializeField] private float projectileLifeSpan = 2;
@@ -15,7 +15,6 @@ public class EnemyProjectile : MonoBehaviour
 
 
     private float lifeSpanTimer;
-    private bool isDead;
 
     [HideInInspector] public float projectileSpeed = 0;
     [HideInInspector] public int damage;
@@ -23,7 +22,6 @@ public class EnemyProjectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isDead = false;
         lifeSpanTimer = 0;
     }
 
@@ -31,52 +29,32 @@ public class EnemyProjectile : MonoBehaviour
     void Update()
     {
         if (lifeSpanTimer > projectileLifeSpan)
-            Destroy(gameObject);
+            Kill();
 
         lifeSpanTimer += Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-        if (!isDead)
-            transform.position += transform.right * projectileSpeed;
+        transform.position += transform.right * (projectileSpeed * (1 - (lifeSpanTimer / projectileLifeSpan)));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDead)
-            return;
-
-        if (collision.GetComponent<EnemyProjectile>() || collision.GetComponent<Enemy>() || collision.GetComponent<EnemyShield>())
+        if (collision.GetComponent<EnemyProjectile>() || collision.GetComponent<Enemy>() || collision.GetComponent<EnemyShield>() || collision.GetComponent<Pellet>() || collision.GetComponent<ExplosiveBarrel>())
             return;
 
         if (collision.GetComponent<Player>())
             collision.GetComponent<Player>().TakeDamage(damage);
 
-        if (collision.GetComponent<ExplosiveBarrel>())
-            if (!collision.GetComponent<ExplosiveBarrel>().isExploding)
-                collision.GetComponent<ExplosiveBarrel>().Hit();
-
-        isDead = true;
-
-        GameObject deathParticle = Instantiate(dealthParticlePrefab, transform.position, transform.rotation);
-        deathParticle.GetComponent<OneTimeParticle>().StartParticles(deathParticleColor);
-
-        gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
-        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+        Kill();
     }
 
     public void Kill()
     {
-        if (isDead)
-            return;
-
-        isDead = true;
-
         GameObject deathParticle = Instantiate(dealthParticlePrefab, transform.position, transform.rotation);
         deathParticle.GetComponent<OneTimeParticle>().StartParticles(deathParticleColor);
 
-        gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
-        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+        Destroy(gameObject);
     }
 }

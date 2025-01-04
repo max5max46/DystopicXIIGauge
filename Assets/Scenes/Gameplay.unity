@@ -1107,7 +1107,7 @@ MonoBehaviour:
   securityCylinderPointVal: 5
   headOfSecurityPointVal: 10
   securitySphereWavesToSpawn: 0101010101010101010101010101010101010101
-  securityPyramidWavesToSpawn: 0000000101010101010000000001010101010101
+  securityPyramidWavesToSpawn: 0000000101010101010101010100000000010101
   supSecuritySphereWavesToSpawn: 0000000000000000000000000000010101010101
   supSecurityPyramidWavesToSpawn: 0000000000000000000101010101010101010101
   securityCylinderWavesToSpawn: 0000000000000101010101010100000000010101
@@ -1143,10 +1143,10 @@ MonoBehaviour:
   - 0.2
   - 1
   - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0.5
+  - 0.4
+  - 0.3
+  - 0.2
   - 0.6
   - 0.3
   - 0.6
