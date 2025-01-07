@@ -64,8 +64,9 @@ public class WaveManager : MonoBehaviour
         currentWave = 0;
         totalWaveGS = -roundManager.gsReceivedPerHealthPoint * player.GetComponent<Player>().health;
         hasWon = false;
+        player.GetComponent<Player>().wavesSurvived--;
 
-        foreach(Spawner spawner in spawners)
+        foreach (Spawner spawner in spawners)
         {
             spawner.player = player;
             spawner.soundHandler = soundHandler;
@@ -110,6 +111,7 @@ public class WaveManager : MonoBehaviour
 
             totalWaveGS += roundManager.gsReceivedPerHealthPoint * player.GetComponent<Player>().health;
             currentWave++;
+            player.GetComponent<Player>().wavesSurvived++;
         }
     }
 
@@ -226,5 +228,6 @@ public class WaveManager : MonoBehaviour
     public void EnemyDied(GameObject enemy)
     {
         enemies.Remove(enemy);
+        player.GetComponent<Player>().enemiesKilled++;
     }
 }

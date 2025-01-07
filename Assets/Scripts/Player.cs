@@ -49,6 +49,9 @@ public class Player : MonoBehaviour
     private float immunityTimer;
     private float flickerTimer;
 
+    [HideInInspector] public int enemiesKilled;
+    [HideInInspector] public int wavesSurvived;
+
     [HideInInspector] public int geometricScrapInRun;
     [HideInInspector] public int geometricScrap;
     [HideInInspector] public bool canControl;
@@ -80,6 +83,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(enemiesKilled);
+        Debug.Log(wavesSurvived);
+
         ManageInputs();
 
         SetMovementVector();

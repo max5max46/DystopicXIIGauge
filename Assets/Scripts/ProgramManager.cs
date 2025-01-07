@@ -84,6 +84,8 @@ public class ProgramManager : MonoBehaviour
         data.GS = player.geometricScrap;
         data.volumeSFX = soundHandler.volumeSlider.value;
         data.volumeMusic = musicHandler.volumeSlider.value;
+        data.enemiesKilled = player.enemiesKilled;
+        data.wavesSurvived = player.wavesSurvived;
 
         data.pHealthCurrentStat = upgradeManager.pHealth.upgrade.currentStat;
         data.pHealthCurrentLevel = upgradeManager.pHealth.upgrade.currentUpgradeLevel;
@@ -133,6 +135,8 @@ public class ProgramManager : MonoBehaviour
             player.geometricScrap = data.GS;
             soundHandler.volumeSlider.value = data.volumeSFX;
             musicHandler.volumeSlider.value = data.volumeMusic;
+            player.enemiesKilled = data.enemiesKilled;
+            player.wavesSurvived = data.wavesSurvived;
             upgradeManager.SetAllUpgrades(data);
 
         }
@@ -148,6 +152,8 @@ public class PlayerData
     public int GS;
     public float volumeSFX;
     public float volumeMusic;
+    public int wavesSurvived;
+    public int enemiesKilled;
 
     public float pHealthCurrentStat;
     public int pHealthCurrentLevel;
