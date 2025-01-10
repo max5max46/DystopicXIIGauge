@@ -12,6 +12,7 @@ public class ProgramManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private UpgradeManager upgradeManager;
+    [SerializeField] private LoadingScreenManager loadingScreenManager;
     [SerializeField] private SoundHandler soundHandler;
     [SerializeField] private MusicHandler musicHandler;
 
@@ -32,13 +33,33 @@ public class ProgramManager : MonoBehaviour
 
     public void SwitchSceneToGameplay()
     {
-        SceneManager.LoadScene("Gameplay");
-        player.transform.position = Vector3.zero;
+        loadingScreenManager.StartSlideIn(1);
     }
 
     public void SwitchSceneToMenu()
     {
-        SceneManager.LoadScene("Menu");
+        loadingScreenManager.StartSlideIn(0);
+    }
+
+    public void LoadScene(int sceneIndex)
+    {
+        StartCoroutine(LoadSceneAsynchronously(sceneIndex));
+    }
+
+    IEnumerator LoadSceneAsynchronously (int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+        operation.completed += OperationCompleted;
+        while (!operation.isDone)
+        {
+
+            loadingScreenManager.loadingBar.fillAmount = operation.progress;
+            yield return null;
+        }
+    }
+    private void OperationCompleted(AsyncOperation operation)
+    {
+        loadingScreenManager.StartSlideOut();
     }
 
     public void ExitGame()

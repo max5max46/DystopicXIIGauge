@@ -145,7 +145,7 @@ public class UIManager : MonoBehaviour
         previousUIScreenName = currentUIScreenName;
         currentUIScreenName = name;
 
-        // Handles whether or not the CLear Save Button should be grayed out
+        // Handles whether or not the Clear Save Button should be grayed out
         if (programManager.DoesSaveExist())
             clearSaveButton.interactable = true;
         else

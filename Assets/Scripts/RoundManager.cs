@@ -16,6 +16,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private GameplayUI gameplayUI;
     [SerializeField] private UpgradeManager upgradeManager;
     [SerializeField] private ProgramManager programManager;
+    [SerializeField] private LoadingScreenManager loadingScreenManager;
 
     [HideInInspector] public WaveManager waveManager;
 
@@ -62,7 +63,7 @@ public class RoundManager : MonoBehaviour
         if (hasWon)
         {
             programManager.SwitchSceneToMenu();
-            uiManager.SwitchUIScreen("win");
+            loadingScreenManager.SwitchUIScreenBetweenScene("win");
         }
         else
         {
