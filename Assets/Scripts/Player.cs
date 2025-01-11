@@ -142,7 +142,7 @@ public class Player : MonoBehaviour
                 if (Input.GetKey(KeyCode.A))
                     leftPressed = true;
 
-                if (Input.GetKey(KeyCode.Mouse0))
+                if (Input.GetKeyDown(KeyCode.Mouse0))
                     firePressed = true;
 
                 if (Input.GetKeyDown(KeyCode.Mouse1))
