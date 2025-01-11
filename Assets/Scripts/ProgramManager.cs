@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class ProgramManager : MonoBehaviour
 {
@@ -15,6 +15,8 @@ public class ProgramManager : MonoBehaviour
     [SerializeField] private LoadingScreenManager loadingScreenManager;
     [SerializeField] private SoundHandler soundHandler;
     [SerializeField] private MusicHandler musicHandler;
+    
+
 
     private void Start()
     {

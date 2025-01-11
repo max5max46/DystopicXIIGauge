@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer faceSprite;
     [SerializeField] private RoundManager roundManager;
     [SerializeField] private UIManager uiManager;
+    
 
     [Header("Sprite References")]
     [SerializeField] private Sprite bodyRight;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private ProgramManager programManager;
     [SerializeField] private MusicHandler musicHandler;
     [SerializeField] private Button clearSaveButton;
+    [SerializeField] private TextMeshProUGUI statText;
 
     private string previousUIScreenName;
     [HideInInspector] public string currentUIScreenName;
@@ -37,7 +39,10 @@ public class UIManager : MonoBehaviour
         SwitchUIScreen("main");
     }
 
-
+    private void Update()
+    {
+        statText.text = "Enemies Killed: " + player.enemiesKilled + "\nWaves Finished: " + player.wavesSurvived;
+    }
 
     public void SwitchUIScreen(string name = "none")
     {
